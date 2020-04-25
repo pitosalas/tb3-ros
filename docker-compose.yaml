@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+    tb3-ros:
+        container_name: tb3-ros
+        ports:
+            - '80:8080'
+            #- '5900:5900'
+            - '6080:6080'
+        volumes:
+            - type: bind
+              source: /Users/pitosalas/mydev/amazonros/dockernew/rospersistent
+              target: /my_ros_data
+              volume:
+                nocopy: true
+        image: tb3-ros:latest
+
