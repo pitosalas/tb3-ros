@@ -8,8 +8,8 @@ services:
             - '6080:6080'
         volumes:
             - type: bind
-              source: /Users/pitosalas/mydev/amazonros/dockernew/rospersistent
-              target: /my_ros_data
+              source: /Users/pitosalas/mydev/tb3-ros/rospersistent
+              target: /my_ros_data1
               volume:
                 nocopy: true
         image: tb3-ros:latest

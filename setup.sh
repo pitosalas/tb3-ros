@@ -1,7 +1,7 @@
 export TB3_MODEL=burger
 export TURTLEBOT3_MODEL=burger
 export HOME=/my_ros_data
-export NAME_CATKIN_WORKSPACE=/my_ros_data/catkin/ws
+export NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws
 
 source /opt/ros/melodic/setup.bash
 source /my_ros_data/catkin_ws/devel/setup.bash
