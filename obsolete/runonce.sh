@@ -17,3 +17,8 @@ git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 git clone https://github.com/campusrover/prrexamples.git
 cd ~/catkin_ws
 catkin_make
+
+xterm -fa default -fs 13
+sudo apt update
+sudo apt upgrade
+sudo apt install ros-melodic-slam-gmapping

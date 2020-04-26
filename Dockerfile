@@ -28,3 +28,7 @@ WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
 
 WORKDIR /my_ros_data
+
+RUN sudo apt update
+RUN apt -y upgrade
+RUN apt -y install ros-melodic-slam-gmapping
