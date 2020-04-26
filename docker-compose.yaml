@@ -1,16 +1,21 @@
 version: '3.7'
 services:
-    tb3-ros:
-        container_name: tb3-ros
-        ports:
-            - '80:8080'
-            #- '5900:5900'
-            - '6080:6080'
-        volumes:
-            - type: bind
-              source: /Users/pitosalas/mydev/tb3-ros/rospersistent
-              target: /my_ros_data1
-              volume:
-                nocopy: true
-        image: tb3-ros:latest
-
+  tb3-ros:
+    container_name: tb3-ros
+    image: tb3-ros:latest
+    ports:
+      - '80:8080'
+      #- '5900:5900'
+      - '6080:6080'
+    volumes:
+      - type: volume
+        source: rospersistent
+        target: /my_ros_data
+        volume:
+          nocopy: false
+volumes:
+  rospersistent:
+    driver_opts:
+      type: none
+      device: <%= File.join(File.realpath(__dir__), "rospersistent") %>
+      o: bind
