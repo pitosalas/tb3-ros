@@ -3,6 +3,7 @@ FROM johannhaselberger/coros:latest
 WORKDIR /my_ros_data
 
 ADD setup.sh .
+ADD .Xresource .
 
 ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
