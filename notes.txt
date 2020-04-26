@@ -2,3 +2,12 @@ docker network prune -f;
 docker container prune -f
 docker build -t tb3-ros:latest .
 docker-compose up
+
+http://0.0.0.0:6080/nonvc.html
+
+xterm -fa default -fs 13
+
+# Needed changes
+- make setup.sh run each time a new terminal window opens (.bashrc??)
+- add xterm -fa default -fs 13 to it
+- add  `sudo apt install ros-melodic-slam-gmapping`
