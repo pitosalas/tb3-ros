@@ -9,6 +9,7 @@ ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
     HOME=/my_ros_data \
     NAME_CATKIN_WORKSPACE=/my_ros_data/catkinws
+
 RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
 RUN echo 'xrdb -merge ~/.Xresources' >> .bashrc

@@ -11,8 +11,6 @@ sudo apt update
 sudo apt upgrade
 sudo apt install ros-melodic-slam-gmapping
 
-It seems like when I change the dockerfile to have more stuff in the initial my_ros_data it doesn't take when there already was stuff there.
-
 
 
 # Errors
