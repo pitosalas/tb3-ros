@@ -7,13 +7,13 @@ docker-compose up
 http://0.0.0.0:6080/nonvc.html
 xterm -fa default -fs 13
 
-
-
-# Needed changes
 sudo apt update
 sudo apt upgrade
 sudo apt install ros-melodic-slam-gmapping
-xterm -fa default -fs 13
+
+It seems like when I change the dockerfile to have more stuff in the initial my_ros_data it doesn't take when there already was stuff there.
+
+
 
 # Errors
 

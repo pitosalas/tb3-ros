@@ -1,3 +1,4 @@
+echo "[running setup.sh]"
 export TB3_MODEL=burger
 export TURTLEBOT3_MODEL=burger
 export HOME=/my_ros_data
@@ -11,3 +12,4 @@ alias gs='git status'
 alias cw='cd $NAME_CATKIN_WORKSPACE'
 alias cs='cd $NAME_CATKIN_WORKSPACE/src'
 alias cm='cd $NAME_CATKIN_WORKSPACE && catkin_make'
+xrdb -merge ~/.Xresources
