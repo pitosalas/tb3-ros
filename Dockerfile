@@ -3,7 +3,7 @@ FROM johannhaselberger/coros:latest
 WORKDIR /my_ros_data
 
 ADD setup.sh .
-ADD .Xresource .
+ADD .Xresources .
 
 ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
@@ -24,6 +24,7 @@ RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
 RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 RUN git clone https://github.com/campusrover/prrexamples.git
+RUN git clone https://github.com/campusrover/gen5.git
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
