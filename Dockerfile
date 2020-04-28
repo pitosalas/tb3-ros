@@ -37,4 +37,3 @@ WORKDIR /my_ros_data
 RUN sudo apt update
 RUN apt -y upgrade
 RUN apt -y install ros-melodic-slam-gmapping
-RUN sed -i -e 's/https:\/\/api.ignitionfuel.org/https:\/\/api.ignitionrobotics.org/g' ~/.ignition/fuel/config.yaml
