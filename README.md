@@ -17,6 +17,14 @@ This is a docker package to allow you to run ROS and related applications throug
 * Currently supported on mac with some testing 
 * Windows and Linux have had no testing
 
+#### Mac Install
+* Install docker
+* Clone this repo to your computer
+
+#### Windows Install
+* Install "Ubuntu on Windows"
+* Install Docker
+* Clone this repo
 
 ### Launching it
 * cd to the directory
