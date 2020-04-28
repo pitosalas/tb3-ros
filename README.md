@@ -66,6 +66,12 @@ make fix
 make build
 ```
 
+### Fixing the REST error
+
+```bash
+sed -i -e 's/https:\/\/api.ignitionfuel.org/https:\/\/api.ignitionrobotics.org/g' ~/.ignition/fuel/config.yaml
+```
+
 ## Access IDE
 http://0.0.0.0:80
 password is: dev@ros
