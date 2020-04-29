@@ -22,9 +22,11 @@ This is a docker package to allow you to run ROS and related applications throug
 * Install docker
 * Clone this repo to your computer
 roslaunch turtlebot3_fake turtlebot3_fake.launch
+
 #### Windows Install
-* Install "Ubuntu on Windows"
-* Install Docker
+* Install "Ubuntu on Windows" See [instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+* Install Docker: https://hub.docker.com/editions/community/docker-ce-desktop-windows
+* Install docker-compose: https://docs.docker.com/compose/install/
 * Clone this repo
 
 ### Launching it
