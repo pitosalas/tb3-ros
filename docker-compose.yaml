@@ -19,3 +19,4 @@ volumes:
       type: none
       device: ROSPERSISTENT-PATH
       o: bind
+ß
