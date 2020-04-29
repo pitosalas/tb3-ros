@@ -19,7 +19,7 @@ This is a docker package to allow you to run ROS and related applications throug
 * Windows and Linux have had no testing
 
 #### Mac Install
-* Install docker
+* Install docker (see docker install for mac [here](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)
 * Clone this repo to your computer
 roslaunch turtlebot3_fake turtlebot3_fake.launch
 

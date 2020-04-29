@@ -17,5 +17,5 @@ volumes:
   rospersistent:
     driver_opts:
       type: none
-      device: <%= File.join(File.realpath(__dir__), "rospersistent") %>
+      device: ROSPERSISTENT-PATH
       o: bind

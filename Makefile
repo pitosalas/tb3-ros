@@ -1,7 +1,8 @@
 .PHONEY: start
 start:
 	@[ -d rospersistent ] || mkdir rospersistent
-	@erb docker-compose.yaml > .docker-compose.yaml
+	#@erb docker-compose.yaml > .docker-compose.yaml
+	@sed "s|ROSPERSISTENT-PATH|$$(pwd)\/rospersistent|" docker-compose.yaml > .docker-compose.yaml 
 	docker-compose -f .docker-compose.yaml up -d
 
 .PHONEY: stop
