@@ -28,6 +28,7 @@ RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
 RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 RUN git clone https://github.com/campusrover/prrexamples.git
 RUN git clone https://github.com/campusrover/gen5.git
+RUN git clone https://github.com/MoffKalast/rbx1.git
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
@@ -37,3 +38,10 @@ WORKDIR /my_ros_data
 RUN sudo apt update
 RUN apt -y upgrade
 RUN apt -y install ros-melodic-slam-gmapping
+RUN apt -y install ros-melodic-map-server
+RUN apt -y install ros-melodic-move-base
+
+WORKDIR /my_ros_data/catkin_ws
+RUN source /opt/ros/melodic/setup.bash && catkin_make
+
+
