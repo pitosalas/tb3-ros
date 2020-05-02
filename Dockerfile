@@ -40,6 +40,7 @@ RUN apt -y upgrade
 RUN apt -y install ros-melodic-slam-gmapping
 RUN apt -y install ros-melodic-map-server
 RUN apt -y install ros-melodic-move-base
+RUN apt -y install ros-melodic-dwa-local-planner
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
