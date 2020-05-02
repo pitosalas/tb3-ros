@@ -8,7 +8,7 @@ ADD .Xresources .
 ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
     HOME=/my_ros_data \
-    NAME_CATKIN_WORKSPACE=/my_ros_data/catkinws
+    NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws
 
 RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
@@ -41,6 +41,7 @@ RUN apt -y install ros-melodic-slam-gmapping
 RUN apt -y install ros-melodic-map-server
 RUN apt -y install ros-melodic-move-base
 RUN apt -y install ros-melodic-dwa-local-planner
+RUN pip install redis
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
