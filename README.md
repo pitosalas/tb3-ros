@@ -19,20 +19,40 @@ This is a docker package to allow you to run ROS and related applications throug
 * Windows and Linux have had no testing
 
 #### Mac Install
-* Install docker (see docker install for mac [here](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)
-* Clone this repo to your computer
-roslaunch turtlebot3_fake turtlebot3_fake.launch
+* Install Docker for Mac. See [instructions](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)
+* Clone this repo
+  ```bash
+  git clone https://github.com/pitosalas/tb3-ros.git
+  ```
 
 #### Windows Install
-* Install "Ubuntu on Windows" See [instructions](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-* Install Docker: https://hub.docker.com/editions/community/docker-ce-desktop-windows
-* Install docker-compose: https://docs.docker.com/compose/install/
+* Install Docker for Windows. See [instructions](https://hub.docker.com/editions/community/docker-ce-desktop-windows/)
 * Clone this repo
+* Once Docker is installed, go to `Settings` -> `Resources` -> `File Sharing`
+  * Check the "+" sign and add the directory of this repo, i.e `C:\Users\Robot\Documents\tb3-ros`
 
 ### Launching it
-* cd to the directory where you cloned this repo (`tb3-ros`)
-* `make build` to create the image for the first time
-* From then on, controll the container with `make start` and `make stop`
+
+#### Mac Launch
+* Start the container
+  ```bash
+  make start
+  ```
+* Stop the container
+  ```bash
+  make stop
+  ```
+
+#### Windows Launch
+*Using Powershell*
+* Start the container
+  ```powershell
+  .\win-make start
+  ```
+* Stop the container
+  ```powershell
+  .\win-make stop
+  ```
 
 ### Accessing the virtual desktop
 * Browser: http://0.0.0.0:6080/vnc.html
