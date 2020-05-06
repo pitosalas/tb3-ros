@@ -30,8 +30,9 @@ roslaunch turtlebot3_fake turtlebot3_fake.launch
 * Clone this repo
 
 ### Launching it
-* cd to the directory
-* Controlling the container with `make start` and `make stop`
+* cd to the directory where you cloned this repo (`tb3-ros`)
+* `make build` to create the image for the first time
+* From then on, controll the container with `make start` and `make stop`
 
 ### Accessing the virtual desktop
 * Browser: http://0.0.0.0:6080/vnc.html
