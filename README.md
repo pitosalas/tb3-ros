@@ -44,13 +44,14 @@ roslaunch turtlebot3_fake turtlebot3_fake.launch
 
 * VSCode is a very popular text editor
 * You can get to it with http://0.0.0.0:80
-* If it asks for a password, use dev@ros
+* If it asks for a password, use `dev@ros`
 
 ## Playing around
 
 * If you don't know much about ROS but want to see what it's like, try these commands
-* Open one terminal window and do `roslaunch turtlebot3_fake turtlebot3_fake.launch`
-* Open a diffetent terminal and do: `roslaunch turtlebot3_teleop turtlebot3_teleop_key`
+* Open a terminal window and do: `roscore`
+* Open a different terminal window and do: `roslaunch turtlebot3_fake turtlebot3_fake.launch`
+* Open a different terminal window and do: `roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch`
 
 
 ## Working with the container
