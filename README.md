@@ -16,7 +16,7 @@ This is a docker package to allow you to run ROS and related applications throug
 
 * Install on your computer by cloning this github repo
 * Currently supported on mac with some testing 
-* Windows and Linux have had no testing
+* Linux has had no testing
 
 #### Mac Install
 * Install Docker for Mac. See [instructions](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)
