@@ -2,13 +2,14 @@ FROM johannhaselberger/coros:latest
 
 WORKDIR /my_ros_data
 
-ADD setup.sh .
-ADD .Xresources .
+ADD files/setup.sh .
+ADD files/.Xresources .
 
 ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
     HOME=/my_ros_data \
-    NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws
+    NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws \
+    SHELL=/bin/bash
 
 RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
