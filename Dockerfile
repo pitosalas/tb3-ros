@@ -42,6 +42,7 @@ RUN apt -y install ros-melodic-slam-gmapping
 RUN apt -y install ros-melodic-map-server
 RUN apt -y install ros-melodic-move-base
 RUN apt -y install ros-melodic-dwa-local-planner
+RUN apt -y install ros-melodic-fiducials
 RUN pip install redis
 
 WORKDIR /my_ros_data/catkin_ws
