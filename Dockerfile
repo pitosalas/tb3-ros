@@ -30,14 +30,17 @@ RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 RUN git clone https://github.com/campusrover/prrexamples.git
 RUN git clone https://github.com/campusrover/gen5.git
 RUN git clone https://github.com/MoffKalast/rbx1.git
+RUN git clone https://github.com/campusrover/robot_services.git
 
-WORKDIR /my_ros_data/catkin_ws
-RUN source /opt/ros/melodic/setup.bash && catkin_make
+# WORKDIR /my_ros_data/catkin_ws
+# RUN source /opt/ros/melodic/setup.bash && catkin_make
 
 WORKDIR /my_ros_data
 
-RUN sudo apt update
+RUN apt -y update
 RUN apt -y upgrade
+RUN rosdep update
+
 RUN apt -y install ros-melodic-slam-gmapping
 RUN apt -y install ros-melodic-map-server
 RUN apt -y install ros-melodic-move-base
@@ -45,7 +48,11 @@ RUN apt -y install ros-melodic-dwa-local-planner
 RUN apt -y install ros-melodic-fiducials
 RUN pip install redis
 
+RUN apt -y update
+RUN apt -y upgrade
+RUN rosdep update
+RUN sudo apt-get -y install ros-melodic-arbotix-*
+RUN sudo apt-get -y install ros-melodic-turtlebot*
+
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
-
-
