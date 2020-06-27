@@ -108,7 +108,8 @@ sed -i -e 's/https:\/\/api.ignitionfuel.org/https:\/\/api.ignitionrobotics.org/g
 
 ## Access IDE
 http://0.0.0.0:80
-password is: dev@ros
+password is: `dev@ros`
 
 ## Access linux to run graphical programs
 http://0.0.0.0:6080/vnc.html
+password is: `dev@ros`
