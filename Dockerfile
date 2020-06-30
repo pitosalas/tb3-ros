@@ -15,6 +15,10 @@ RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
 RUN echo 'xrdb -merge ~/.Xresources' >> .bashrc
 
+# Setup VNC password
+RUN mkdir ~/.vnc
+RUN x11vnc -storepasswd $PASSWORD ~/.vnc/passwd
+
 RUN mkdir -p catkin_ws/src
 
 WORKDIR /my_ros_data/catkin_ws/src
@@ -48,11 +52,15 @@ RUN apt -y install ros-melodic-dwa-local-planner
 RUN apt -y install ros-melodic-fiducials
 RUN pip install redis
 
-RUN apt -y update
-RUN apt -y upgrade
 RUN rosdep update
 RUN sudo apt-get -y install ros-melodic-arbotix-*
 RUN sudo apt-get -y install ros-melodic-turtlebot*
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
+
+COPY ./entrypoint.sh /entry/
+RUN chmod +x /entry/entrypoint.sh
+# Override entrypoint of base image
+ENTRYPOINT []
+CMD ["bash", "-c", "/entry/entrypoint.sh"]
