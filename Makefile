@@ -10,7 +10,7 @@ stop:
 
 .PHONEY: build
 build:
-	docker build -t tb3-ros:latest --no-cache .
+	docker build -t cosi119/tb3-ros:latest --no-cache .
 
 .PHONEY: fix
 fix:
