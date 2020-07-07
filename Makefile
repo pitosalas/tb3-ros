@@ -4,6 +4,13 @@ start:
 	@sed "s|ROSPERSISTENT-PATH|$$(pwd)\/rospersistent|" docker-compose.yaml > .docker-compose.yaml 
 	docker-compose -f .docker-compose.yaml up -d
 
+.PHONEY: sol
+sol:
+	@[ -d rospersistent ] || mkdir rospersistent
+	@sed "s|ROSPERSISTENT-PATH|$$(pwd)\/rospersistent|" docker-compose-sol.yaml > .docker-compose.yaml 
+	docker-compose -f .docker-compose.yaml up -d
+
+
 .PHONEY: stop
 stop:
 	docker-compose -f .docker-compose.yaml down
