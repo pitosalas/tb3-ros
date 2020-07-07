@@ -4,9 +4,9 @@ services:
     container_name: tb3-ros
     image: cosi119/tb3-ros:latest
     ports:
-      - '80:8085'
+      # - '80:8085'
       #- '5900:5900'
-      - '6080:6085'
+      - '6080:6080'
     volumes:
       - type: volume
         source: rospersistent
