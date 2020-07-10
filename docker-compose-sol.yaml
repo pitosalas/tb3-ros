@@ -6,7 +6,7 @@ services:
     ports:
        - '80:6085'
       #- '5900:5900'
-      - '6080:6080'
+       - '6080:6080'
     volumes:
       - type: volume
         source: rospersistent
