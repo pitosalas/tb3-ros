@@ -10,6 +10,15 @@ sol:
 	@sed "s|ROSPERSISTENT-PATH|$$(pwd)\/rospersistent|" docker-compose-sol.yaml > .docker-compose.yaml 
 	docker-compose -f .docker-compose.yaml up -d
 
+.PHONEY: start-server
+start-server:
+	# Create local directories for storing data
+	@[ -d data/rospersistent-alpha ] || mkdir -p data/rospersistent-alpha
+	@[ -d data/rospersistent-beta ] || mkdir -p data/rospersistent-beta
+	@[ -d data/rospersistent-gamma ] || mkdir -p data/rospersistent-gamma
+	# Add correct local directories path to compose file
+	@sed "s|ROSPERSISTENT-PATH|$$(pwd)|" docker-compose-sol.yaml > .docker-compose.yaml 
+	docker-compose -f .docker-compose.yaml up -d
 
 .PHONEY: stop
 stop:

@@ -1,0 +1,54 @@
+version: '3.7'
+services:
+  tb3-ros-alpha:
+    container_name: tb3-ros-alpha
+    image: cosi119/tb3-ros:latest
+    ports:
+       - '8081:8080'
+       - '6081:6080'
+    volumes:
+      - type: volume
+        source: rospersistent-alpha
+        target: /my_ros_data
+        volume:
+          nocopy: false
+  tb3-ros-beta:
+    container_name: tb3-ros-beta
+    image: cosi119/tb3-ros:latest
+    ports:
+        - '8082:8080'
+        - '6082:6080'
+    volumes:
+      - type: volume
+        source: rospersistent-beta
+        target: /my_ros_data
+        volume:
+          nocopy: false
+  tb3-ros-gamma:
+    container_name: tb3-ros-gamma
+    image: cosi119/tb3-ros:latest
+    ports:
+        - '8083:8080'
+        - '6083:6080'
+    volumes:
+      - type: volume
+        source: rospersistent-gamma
+        target: /my_ros_data
+        volume:
+          nocopy: false
+volumes:
+  rospersistent-alpha:
+    driver_opts:
+      type: none
+      device: ROSPERSISTENT-PATH/data/rospersistent-alpha
+      o: bind
+  rospersistent-beta:
+    driver_opts:
+      type: none
+      device: ROSPERSISTENT-PATH/data/rospersistent-beta
+      o: bind
+  rospersistent-gamma:
+    driver_opts:
+      type: none
+      device: ROSPERSISTENT-PATH/data/rospersistent-gamma
+      o: bind
