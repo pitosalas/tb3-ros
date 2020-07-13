@@ -49,7 +49,7 @@ This is a docker package to allow you to run ROS and related applications throug
   ```powershell
   .\win-make start
   ```
-* Stop the container
+* Stop the container!
   ```powershell
   .\win-make stop
   ```
