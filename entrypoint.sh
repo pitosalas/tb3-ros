@@ -17,5 +17,8 @@ jwm &
 echo "starting noVNC"
 /novnc/noVNC/utils/launch.sh --vnc localhost:5900 &
 
+echo "starting sshd"
+/etc/init.d/ssh restart
+
 source /opt/ros/melodic/setup.bash
 /code-server/code-server --user-data-dir /workspace --allow-http --password $PASSWORD --auth password

@@ -66,6 +66,12 @@ This is a docker package to allow you to run ROS and related applications throug
 * You can get to it with http://0.0.0.0:80
 * If it asks for a password, use `dev@ros`
 
+### Setup SSH for remote access
+* To enable ssh, first login using virtual desktop/VScode
+* Open up the terminal
+* Run `sudo passwd root` to setup a password
+* To SSH in: `ssh root@host -p 222n`, type in the previous password
+
 ## Playing around
 
 * If you don't know much about ROS but want to see what it's like, try these commands

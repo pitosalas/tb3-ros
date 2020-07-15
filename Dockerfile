@@ -5,6 +5,7 @@ WORKDIR /my_ros_data
 
 ADD files/setup.sh .
 ADD files/.Xresources .
+COPY files/sshd_config /etc/ssh/
 
 ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
