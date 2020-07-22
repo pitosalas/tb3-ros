@@ -12,11 +12,14 @@ class Container
     <<-YAML
   #{@service_name}:
     container_name: #{@container_name}
+    hostname: #{@container_name}
     image: cosi119/tb3-ros:latest
     ports:
       - '#{8080 + @id}:8080'
       - '#{6080 + @id}:6080'
       - '#{2220 + @id}:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: #{@volume_name}
@@ -46,13 +49,29 @@ end
 
 # Generate docker-compose
 File.open("docker-compose-server.yaml", 'w') do |f|
-  body1 = <<~YAML
-  version: '3.7'
-  services:
+  body1 = <<-YAML
+version: '3.7'
+services:
+  tb3-ros-relay:
+    container_name: tb3-ros-relay
+    hostname: tb3-ros-relay
+    image: xumr0x/tailscale-relay:latest
+    environment:
+      ROUTES:
+      AUTHKEY:
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - 'tailscale-data:/tailscale'
+    networks:
+      - tb3-ros-net
   YAML
 
-  body2 = <<~YAML
-  volumes:
+  body2 = <<-YAML
+networks:
+  tb3-net:
+volumes:
+  tailscale-data:
   YAML
 
   f.write(body1)

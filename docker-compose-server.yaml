@@ -1,12 +1,28 @@
 version: '3.7'
 services:
+  tb3-ros-relay:
+    container_name: tb3-ros-relay
+    hostname: tb3-ros-relay
+    image: xumr0x/tailscale-relay:latest
+    environment:
+      ROUTES:
+      AUTHKEY:
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - 'tailscale-data:/tailscale'
+    networks:
+      - tb3-ros-net
   tb3-ros-alpha:
     container_name: tb3-ros-alpha
+    hostname: tb3-ros-alpha
     image: cosi119/tb3-ros:latest
     ports:
       - '8081:8080'
       - '6081:6080'
       - '2221:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-alpha
@@ -15,11 +31,14 @@ services:
           nocopy: false
   tb3-ros-beta:
     container_name: tb3-ros-beta
+    hostname: tb3-ros-beta
     image: cosi119/tb3-ros:latest
     ports:
       - '8082:8080'
       - '6082:6080'
       - '2222:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-beta
@@ -28,11 +47,14 @@ services:
           nocopy: false
   tb3-ros-gamma:
     container_name: tb3-ros-gamma
+    hostname: tb3-ros-gamma
     image: cosi119/tb3-ros:latest
     ports:
       - '8083:8080'
       - '6083:6080'
       - '2223:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-gamma
@@ -41,11 +63,14 @@ services:
           nocopy: false
   tb3-ros-delta:
     container_name: tb3-ros-delta
+    hostname: tb3-ros-delta
     image: cosi119/tb3-ros:latest
     ports:
       - '8084:8080'
       - '6084:6080'
       - '2224:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-delta
@@ -54,11 +79,14 @@ services:
           nocopy: false
   tb3-ros-epsilon:
     container_name: tb3-ros-epsilon
+    hostname: tb3-ros-epsilon
     image: cosi119/tb3-ros:latest
     ports:
       - '8085:8080'
       - '6085:6080'
       - '2225:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-epsilon
@@ -67,11 +95,14 @@ services:
           nocopy: false
   tb3-ros-zeta:
     container_name: tb3-ros-zeta
+    hostname: tb3-ros-zeta
     image: cosi119/tb3-ros:latest
     ports:
       - '8086:8080'
       - '6086:6080'
       - '2226:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-zeta
@@ -80,11 +111,14 @@ services:
           nocopy: false
   tb3-ros-eta:
     container_name: tb3-ros-eta
+    hostname: tb3-ros-eta
     image: cosi119/tb3-ros:latest
     ports:
       - '8087:8080'
       - '6087:6080'
       - '2227:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-eta
@@ -93,11 +127,14 @@ services:
           nocopy: false
   tb3-ros-theta:
     container_name: tb3-ros-theta
+    hostname: tb3-ros-theta
     image: cosi119/tb3-ros:latest
     ports:
       - '8088:8080'
       - '6088:6080'
       - '2228:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-theta
@@ -106,11 +143,14 @@ services:
           nocopy: false
   tb3-ros-iota:
     container_name: tb3-ros-iota
+    hostname: tb3-ros-iota
     image: cosi119/tb3-ros:latest
     ports:
       - '8089:8080'
       - '6089:6080'
       - '2229:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-iota
@@ -119,18 +159,24 @@ services:
           nocopy: false
   tb3-ros-kappa:
     container_name: tb3-ros-kappa
+    hostname: tb3-ros-kappa
     image: cosi119/tb3-ros:latest
     ports:
       - '8090:8080'
       - '6090:6080'
       - '2230:22'
+    networks:
+      - tb3-ros-net
     volumes:
       - type: volume
         source: rospersistent-kappa
         target: /my_ros_data
         volume:
           nocopy: false
+networks:
+  tb3-net:
 volumes:
+  tailscale-data:
   rospersistent-alpha:
     driver_opts:
       type: none
