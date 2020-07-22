@@ -28,6 +28,25 @@ start-server:
 	@sed "s|ROSPERSISTENT-PATH|$$(pwd)|" docker-compose-server.yaml > .docker-compose.yaml 
 	docker-compose -f .docker-compose.yaml up -d
 
+.PHONEY: start-experiment
+start-experiment:
+	# Create local directories for storing data
+	@[ -d data/rospersistent-alpha ] || mkdir -p data/rospersistent-alpha
+	@[ -d data/rospersistent-beta ] || mkdir -p data/rospersistent-beta
+	@[ -d data/rospersistent-gamma ] || mkdir -p data/rospersistent-gamma
+	@[ -d data/rospersistent-delta ] || mkdir -p data/rospersistent-delta
+	@[ -d data/rospersistent-epsilon ] || mkdir -p data/rospersistent-epsilon
+	@[ -d data/rospersistent-zeta ] || mkdir -p data/rospersistent-zeta
+	@[ -d data/rospersistent-eta ] || mkdir -p data/rospersistent-eta
+	@[ -d data/rospersistent-theta ] || mkdir -p data/rospersistent-theta
+	@[ -d data/rospersistent-iota ] || mkdir -p data/rospersistent-iota
+	@[ -d data/rospersistent-kappa ] || mkdir -p data/rospersistent-kappa
+
+	# Add correct local directories path to compose file
+	@sed "s|ROSPERSISTENT-PATH|$$(pwd)|" docker-compose-server.yaml > .docker-compose.yaml
+	# For Julian's use only!!
+	docker-compose -f .docker-compose.yaml up -d tb3-ros-relay tb3-ros-zeta
+
 .PHONEY: stop
 stop:
 	docker-compose -f .docker-compose.yaml down

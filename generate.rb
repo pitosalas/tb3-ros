@@ -69,7 +69,7 @@ services:
 
   body2 = <<-YAML
 networks:
-  tb3-net:
+  tb3-ros-net:
 volumes:
   tailscale-data:
   YAML
