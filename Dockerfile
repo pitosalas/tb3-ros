@@ -47,6 +47,8 @@ RUN sudo apt -y update
 RUN apt -y upgrade
 RUN rosdep update
 
+RUN apt-get install -y iproute2
+
 RUN apt -y install ros-melodic-slam-gmapping
 RUN apt -y install ros-melodic-map-server
 RUN apt -y install ros-melodic-move-base

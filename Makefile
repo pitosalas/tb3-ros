@@ -29,8 +29,8 @@ start-server:
 	# Starting containers... 
 	docker-compose -f .docker-compose.yaml up -d
 
-.PHONEY: start-experiment
-start-experiment:
+.PHONEY: restart-server
+restart-server:
 	# Create local directories for storing data
 	@[ -d data/rospersistent-alpha ] || mkdir -p data/rospersistent-alpha
 	@[ -d data/rospersistent-beta ] || mkdir -p data/rospersistent-beta
@@ -45,7 +45,7 @@ start-experiment:
 
 	# Add correct local directories path to compose file
 	@sed "s|ROSPERSISTENT-PATH|$$(pwd)|" docker-compose-server.yaml > .docker-compose.yaml
-	# Starting containers... 
+	# Restarting containers... 
 	docker-compose -f .docker-compose.yaml up -d $(containers)
 
 .PHONEY: stop

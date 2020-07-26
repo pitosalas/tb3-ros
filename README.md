@@ -54,6 +54,39 @@ This is a docker package to allow you to run ROS and related applications throug
   .\win-make stop
   ```
 
+#### Server mode
+
+`tb3-ros` supports a server mode where multiple instances of this image are created in the same server.
+
+##### Requirements
+
+Before you use server mode, there are a couple things you will need:
+
+- On the host machine/server:
+  - Ruby > 2.6
+  - `make`
+- Tailscale [Authkey](https://login.tailscale.com/admin/authkeys)
+
+Before starting the server, use `generate.rb` to generate a new `docker-compose.yaml` file.
+
+```bash
+# ruby generate.rb <container_names>
+ruby generate.rb apple orange melon
+```
+
+To start the containers,
+
+```bash
+# The subnet prefix of the new network, i.e. 172.31.0.0/16
+AUTHKEY=<Tailscale Authkey> ROUTES=<Docker subnet> make start-server
+```
+
+To restart specific container,
+
+```bash
+make restart-server containers="apple orange"
+```
+
 ### Accessing the virtual desktop
 * Browser: http://0.0.0.0:6080/vnc.html
 * Click on desktop and get a tiny menu. Click "terminal"
@@ -101,6 +134,10 @@ make fix
 ```
 
 ### Rebuild the image
+
+*Only used when developing this image.* 
+
+If you want want the latest version of `tb3-ros`, do a `docker pull cosi119/tb3-ros:latest` instead.
 
 ```bash
 make build
