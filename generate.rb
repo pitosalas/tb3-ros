@@ -18,6 +18,8 @@ class Container
       - '#{8080 + @id}:8080'
       - '#{6080 + @id}:6080'
       - '#{2220 + @id}:22'
+    cap_add:
+      - NET_ADMIN
     networks:
       - tb3-ros-net
     volumes:
