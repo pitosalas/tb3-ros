@@ -25,7 +25,8 @@ start-server:
 	@[ -d data/rospersistent-kappa ] || mkdir -p data/rospersistent-kappa
 
 	# Add correct local directories path to compose file
-	@sed "s|ROSPERSISTENT-PATH|$$(pwd)|" docker-compose-server.yaml > .docker-compose.yaml 
+	@sed "s|ROSPERSISTENT-PATH|$$(pwd)|" docker-compose-server.yaml > .docker-compose.yaml
+	# Starting containers... 
 	docker-compose -f .docker-compose.yaml up -d
 
 .PHONEY: start-experiment
@@ -44,8 +45,8 @@ start-experiment:
 
 	# Add correct local directories path to compose file
 	@sed "s|ROSPERSISTENT-PATH|$$(pwd)|" docker-compose-server.yaml > .docker-compose.yaml
-	# For Julian's use only!!
-	docker-compose -f .docker-compose.yaml up -d tb3-ros-relay tb3-ros-zeta
+	# Starting containers... 
+	docker-compose -f .docker-compose.yaml up -d $(containers)
 
 .PHONEY: stop
 stop:
