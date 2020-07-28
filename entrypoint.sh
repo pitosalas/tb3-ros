@@ -12,6 +12,10 @@ echo "starting xvfb"
 Xvfb :99 -ac -screen 0 "$XVFB_WHD" -nolisten tcp &
 Xvfb_pid="$!"
 
+echo "setting up VNC password"
+mkdir ~/.vnc
+x11vnc -storepasswd $PASSWORD ~/.vnc/passwd
+
 echo "starting the x11 vnc server"
 x11vnc -display :99 --loop -noxrecord -rfbauth ~/.vnc/passwd &
 
@@ -19,7 +23,7 @@ echo "checking openGl support"
 glxinfo | grep '^direct rendering:'
 
 echo "starting window manager jwm"
-jwm &
+jwm -f ~/.jwmrc &
 
 echo "starting noVNC"
 /novnc/noVNC/utils/launch.sh --vnc localhost:5900 &

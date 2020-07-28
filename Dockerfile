@@ -5,6 +5,7 @@ WORKDIR /my_ros_data
 
 ADD files/setup.sh .
 ADD files/.Xresources .
+ADD files/.jwmrc .
 COPY files/sshd_config /etc/ssh/
 
 ENV TB3_MODEL=burger \
@@ -15,11 +16,7 @@ ENV TB3_MODEL=burger \
 
 RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
-RUN echo 'xrdb -merge ~/.Xresources' >> .bashrc
-
-# Setup VNC password
-RUN mkdir ~/.vnc
-RUN x11vnc -storepasswd $PASSWORD ~/.vnc/passwd
+# RUN echo 'xrdb -merge ~/.Xresources' >> .bashrc
 
 RUN mkdir -p catkin_ws/src
 
@@ -47,7 +44,10 @@ RUN sudo apt -y update
 RUN apt -y upgrade
 RUN rosdep update
 
-RUN apt-get install -y iproute2
+# Install system dependencies
+RUN apt-get install -y \
+    iproute2 \
+    lxterminal
 
 RUN apt -y install ros-melodic-slam-gmapping
 RUN apt -y install ros-melodic-map-server
