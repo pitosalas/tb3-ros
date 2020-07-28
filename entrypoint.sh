@@ -1,10 +1,12 @@
 
 #!/bin/bash
 
-echo "setting up routes for tailscale-relay"
-ip route del default
-ip route add 100.64.0.0/10 via 172.31.0.2
-ip route add default via 172.31.0.1
+if [[ ! -z "${GW_IP}" ]]; then
+  echo "setting up routes for tailscale-relay"
+  ip route del default
+  ip route add 100.64.0.0/10 via $RELAY_IP
+  ip route add default via $GW_IP
+fi
 
 echo "starting xvfb"
 Xvfb :99 -ac -screen 0 "$XVFB_WHD" -nolisten tcp &

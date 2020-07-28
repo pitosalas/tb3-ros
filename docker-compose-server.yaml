@@ -21,6 +21,9 @@ services:
       - '8081:8080'
       - '6081:6080'
       - '2221:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -39,6 +42,9 @@ services:
       - '8082:8080'
       - '6082:6080'
       - '2222:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -57,6 +63,9 @@ services:
       - '8083:8080'
       - '6083:6080'
       - '2223:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -75,6 +84,9 @@ services:
       - '8084:8080'
       - '6084:6080'
       - '2224:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -93,6 +105,9 @@ services:
       - '8085:8080'
       - '6085:6080'
       - '2225:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -111,6 +126,9 @@ services:
       - '8086:8080'
       - '6086:6080'
       - '2226:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -129,6 +147,9 @@ services:
       - '8087:8080'
       - '6087:6080'
       - '2227:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -147,6 +168,9 @@ services:
       - '8088:8080'
       - '6088:6080'
       - '2228:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -165,6 +189,9 @@ services:
       - '8089:8080'
       - '6089:6080'
       - '2229:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:
@@ -183,6 +210,9 @@ services:
       - '8090:8080'
       - '6090:6080'
       - '2230:22'
+    environment:
+      GW_IP:
+      RELAY_IP:
     cap_add:
       - NET_ADMIN
     networks:

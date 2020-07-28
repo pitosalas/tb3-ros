@@ -56,7 +56,7 @@ This is a docker package to allow you to run ROS and related applications throug
 
 #### Server mode
 
-`tb3-ros` supports a server mode where multiple instances of this image are created in the same server.
+`tb3-ros` supports a server mode where multiple instances of this image are created in the same server. **Only available on linux**
 
 ##### Requirements
 
@@ -77,8 +77,11 @@ ruby generate.rb apple orange melon
 To start the containers,
 
 ```bash
-# The subnet prefix of the new network, i.e. 172.31.0.0/16
-AUTHKEY=<Tailscale Authkey> ROUTES=<Docker subnet> make start-server
+# AUTHKEY  Tailscale AuthKey     i.e. tskey-123abc...
+# ROUTES   Docker subnet network i.e. 172.31.0.0/16
+# GW_IP    Docker subnet gateway i.e. 172.31.0.1
+# RELAY_IP Tailscale-relay IP    i.e. 172.31.0.2
+AUTHKEY=<Tailscale Authkey> ROUTES=<Subnet Network> GW_IP=<Subnet Gateway> RELAY_IP=<Tailscale-relay IP> make start-server
 ```
 
 To restart specific container,
