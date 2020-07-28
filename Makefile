@@ -60,3 +60,7 @@ build:
 fix:
 	docker network prune -f
 	docker container prune -f
+
+.PHONEY: pull
+pull:
+	docker pull cosi119/tb3-ros:latest
