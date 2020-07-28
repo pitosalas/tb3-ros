@@ -23,7 +23,7 @@ echo "checking openGl support"
 glxinfo | grep '^direct rendering:'
 
 echo "starting window manager jwm"
-jwm -f ~/.jwmrc &
+jwm -f /entry/.jwmrc &
 
 echo "starting noVNC"
 /novnc/noVNC/utils/launch.sh --vnc localhost:5900 &

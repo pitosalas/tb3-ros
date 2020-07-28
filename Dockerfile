@@ -4,8 +4,7 @@ FROM johannhaselberger/coros:latest
 WORKDIR /my_ros_data
 
 ADD files/setup.sh .
-ADD files/.Xresources .
-ADD files/.jwmrc .
+ADD files/.jwmrc /entry/
 COPY files/sshd_config /etc/ssh/
 
 ENV TB3_MODEL=burger \
@@ -16,7 +15,6 @@ ENV TB3_MODEL=burger \
 
 RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
-# RUN echo 'xrdb -merge ~/.Xresources' >> .bashrc
 
 RUN mkdir -p catkin_ws/src
 
