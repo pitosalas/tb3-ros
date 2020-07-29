@@ -45,6 +45,7 @@ RUN rosdep update
 # Install system dependencies
 RUN apt-get install -y \
     iproute2 \
+    iputils-ping \
     lxterminal
 
 RUN apt -y install ros-melodic-slam-gmapping

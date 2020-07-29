@@ -12,4 +12,3 @@ alias gs='git status'
 alias cw='cd $NAME_CATKIN_WORKSPACE'
 alias cs='cd $NAME_CATKIN_WORKSPACE/src'
 alias cm='cd $NAME_CATKIN_WORKSPACE && catkin_make'
-xrdb -merge ~/.Xresources
