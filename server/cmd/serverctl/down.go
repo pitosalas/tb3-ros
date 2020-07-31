@@ -10,8 +10,8 @@ import (
 
 func DownCommand() *cli.Command {
 	return &cli.Command{
-		Name:  "up",
-		Usage: "start a tb3-ros server",
+		Name:  "down",
+		Usage: "stop the tb3-ros server",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "config",
