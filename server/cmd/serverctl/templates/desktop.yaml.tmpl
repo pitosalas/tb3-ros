@@ -1,0 +1,24 @@
+{{- define "desktop" }}
+  {{ .ServiceName }}:
+    container_name: {{ .ContainerName }}
+    hostname: {{ .HostName }}
+    image: cosi119/tb3-ros:latest
+    ports:
+      - '{{ .Port.vscode }}:8080'
+      - '{{ .Port.vnc }}:6080'
+      - '{{ .Port.ssh }}:22'
+    environment:
+      GW_IP: {{ .Secret.GW_IP }}
+      RELAY_IP: {{ .Secret.RELAY_IP }}
+      PASSWORD: {{ .Secret.PASSWORD }}
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - {{ .Network.Name }}
+    volumes:
+      - type: volume
+        source: {{ .Volume.Name }}
+        target: /my_ros_data
+        volume:
+            nocopy: false
+{{ end -}}

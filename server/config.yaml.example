@@ -1,0 +1,17 @@
+server_name: example
+desktop:
+  names:
+    - "mars"
+    - "saturn"
+    - "jupiter"
+  security:
+    random_password: false
+    password: dev@ros
+  data:
+    directory: ./data
+relay:
+  authkey: tskey-123abc
+  docker_ip: 172.99.0.2
+network:
+  subnet: 172.99.0.0/16
+  gateway: 172.99.0.1
