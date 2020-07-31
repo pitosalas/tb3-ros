@@ -15,11 +15,11 @@ type ConfigFile struct {
 	Desktop    struct {
 		Names    []string `yaml:",flow"`
 		Security struct {
-			RandomPassword bool
+			RandomPassword bool   `yaml:"random_password"`
 			Password       string `yaml:",omitempty"`
 		}
 		Data struct {
-			Directory string
+			Directory string `yaml:"directory"`
 		}
 	}
 	Relay struct {
@@ -27,8 +27,8 @@ type ConfigFile struct {
 		DockerIP string `yaml:"docker_ip"`
 	}
 	Network struct {
-		Subnet  string
-		Gateway string
+		Subnet  string `yaml:"subnet"`
+		Gateway string `yaml:"gateway"`
 	}
 }
 
