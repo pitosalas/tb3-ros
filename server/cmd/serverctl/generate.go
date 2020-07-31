@@ -47,7 +47,7 @@ func generateAction() cli.ActionFunc {
 			return fmt.Errorf("failed to read templates: %v", err)
 		}
 
-		f, err := os.OpenFile(composeFileName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
+		f, err := os.OpenFile(composeFileName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
 		if err != nil {
 			return fmt.Errorf("failed to create compose file: %v", err)
 		}
