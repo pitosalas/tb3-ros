@@ -8,7 +8,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func UpCommand() *cli.Command {
+func DownCommand() *cli.Command {
 	return &cli.Command{
 		Name:  "up",
 		Usage: "start a tb3-ros server",
@@ -21,18 +21,12 @@ func UpCommand() *cli.Command {
 				TakesFile:   true,
 				Required:    true,
 			},
-			&cli.BoolFlag{
-				Name:    "detach",
-				Usage:   "Detached mode: Run containers in the background, print new container names.",
-				Aliases: []string{"d"},
-				Value:   false,
-			},
 		},
-		Action: upAction(),
+		Action: downAction(),
 	}
 }
 
-func upAction() cli.ActionFunc {
+func downAction() cli.ActionFunc {
 	return func(ctx *cli.Context) error {
 		err := generateAction()(ctx)
 		if err != nil {
@@ -42,17 +36,14 @@ func upAction() cli.ActionFunc {
 		args := []string{
 			"-f",
 			composeFileName,
-			"up",
-		}
-		if ctx.Bool("detach") {
-			args = append(args, "-d")
+			"down",
 		}
 
 		cmd := exec.Command("docker-compose", args...)
 
-		log.Println("starting server...")
+		log.Println("stopping server...")
 		if out, err := cmd.CombinedOutput(); err != nil {
-			return fmt.Errorf("failed to start docker-compose: %s", out)
+			return fmt.Errorf("failed to stop docker-compose: %s", out)
 		}
 
 		return cmd.Wait()

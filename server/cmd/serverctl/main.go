@@ -12,6 +12,7 @@ func main() {
 		Commands: []*cli.Command{
 			GenerateCommand(),
 			UpCommand(),
+			DownCommand(),
 		},
 	}
 
