@@ -4,13 +4,13 @@
     hostname: {{ .HostName }}
     image: cosi119/tb3-ros:latest
     ports:
-      - '{{ .Port.vscode }}:8080'
-      - '{{ .Port.vnc }}:6080'
-      - '{{ .Port.ssh }}:22'
+      - '8080'
+      - '6080'
+      - '22'
     environment:
-      GW_IP: {{ .Secret.GW_IP }}
-      RELAY_IP: {{ .Secret.RELAY_IP }}
-      PASSWORD: {{ .Secret.PASSWORD }}
+      GW_IP: {{ .Secrets.GW_IP }}
+      RELAY_IP: {{ .Secrets.RELAY_IP }}
+      PASSWORD: {{ .Secrets.PASSWORD }}
     cap_add:
       - NET_ADMIN
     networks:
@@ -21,4 +21,18 @@
         target: /my_ros_data
         volume:
             nocopy: false
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.{{ .Name }}_vnc.rule=Host(`vnc.{{ .Name }}.{{ .Secrets.DOMAIN }}`)"
+      - "traefik.http.routers.{{ .Name }}_vnc.service={{ .Name }}_vnc"
+      - "traefik.http.services.{{ .Name }}_vnc.loadbalancer.server.port=6080"
+      - "traefik.http.routers.{{ .Name }}_vnc.entrypoints=web"
+      - "traefik.http.routers.{{ .Name }}_vscode.rule=Host(`code.{{ .Name }}.{{ .Secrets.DOMAIN }}`)"
+      - "traefik.http.routers.{{ .Name }}_vscode.service={{ .Name }}_vscode"
+      - "traefik.http.services.{{ .Name }}_vscode.loadbalancer.server.port=8080"
+      - "traefik.http.routers.{{ .Name }}_vscode.entrypoints=web"
+      - "traefik.tcp.routers.{{ .Name }}_ssh.rule=HostSNI(`ssh.{{ .Name }}.{{ .Secrets.DOMAIN }}`)"
+      - "traefik.tcp.routers.{{ .Name }}_ssh.service={{ .Name }}_ssh"
+      - "traefik.tcp.services.{{ .Name }}_ssh.loadbalancer.server.port=22"
+      - "traefik.tcp.routers.{{ .Name }}_ssh.entrypoints=ssh"
 {{ end -}}

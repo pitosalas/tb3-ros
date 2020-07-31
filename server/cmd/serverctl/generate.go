@@ -15,6 +15,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+type generateFunc func(*template.Template, *server.Services) (string, error)
+
 func GenerateCommand() *cli.Command {
 	return &cli.Command{
 		Name:  "generate",
@@ -47,17 +49,63 @@ func generateAction() cli.ActionFunc {
 			return fmt.Errorf("failed to read templates: %v", err)
 		}
 
-		f, err := os.OpenFile(composeFileName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
-		if err != nil {
-			return fmt.Errorf("failed to create compose file: %v", err)
+		if err := mkBuildDir(services.Config.Server.BuildPath); err != nil {
+			return fmt.Errorf("failed to write to build directory: %v", err)
 		}
 
-		if err := t.ExecuteTemplate(f, "docker-compose", services); err != nil {
-			return fmt.Errorf("failed to write to template: %v", err)
+		for _, gFunc := range []generateFunc{
+			generateComposeFile,
+			generateListFile,
+		} {
+			if f, err := gFunc(t, services); err != nil {
+				return fmt.Errorf("failed to write to %s: %v", f, err)
+			}
 		}
 
 		return nil
 	}
+}
+
+func mkBuildDir(directory string) error {
+	if err := os.RemoveAll(directory); err != nil {
+		return fmt.Errorf("failed to remove old build directory: %v", err)
+	}
+
+	if err := os.MkdirAll(directory, 0700); err != nil {
+		return fmt.Errorf("failed to recreate build directory: %v", err)
+	}
+
+	return nil
+}
+
+func generateComposeFile(t *template.Template, s *server.Services) (string, error) {
+	fPath := buildPath(s.Config.Server.BuildPath, server.ComposeFileName)
+
+	f, err := os.OpenFile(fPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		return fPath, fmt.Errorf("failed to create compose file: %v", err)
+	}
+
+	if err := t.ExecuteTemplate(f, "docker-compose", s); err != nil {
+		return fPath, fmt.Errorf("failed to write to template: %v", err)
+	}
+
+	return fPath, nil
+}
+
+func generateListFile(t *template.Template, s *server.Services) (string, error) {
+	fPath := buildPath(s.Config.Server.BuildPath, server.ListFileName)
+
+	f, err := os.OpenFile(fPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		return fPath, fmt.Errorf("failed to create list file: %v", err)
+	}
+
+	if err := t.ExecuteTemplate(f, "generated-list", s); err != nil {
+		return fPath, fmt.Errorf("failed to write to template: %v", err)
+	}
+
+	return fPath, nil
 }
 
 func compileTemplates(dir string) (*template.Template, error) {

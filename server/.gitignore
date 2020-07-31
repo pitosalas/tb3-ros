@@ -1,2 +1,7 @@
 bin
 vendor
+build
+data
+statik.go
+config.yaml
+list.md

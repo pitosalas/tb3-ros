@@ -1,0 +1,26 @@
+{{- define "proxy" }}
+  {{ .ServiceName }}:
+    container_name: {{ .ContainerName }}
+    hostname: {{ .HostName }}
+    image: traefik:v2.2
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.ssh.address=:22"
+    ports:
+      - '{{ .Port.http }}:80'
+      - '{{ .Port.tls }}:443'
+      - '8080:8080'
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      {{ .Network.Name }}:
+    labels:
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.{{ .Secrets.DOMAIN }}`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+{{ end -}}

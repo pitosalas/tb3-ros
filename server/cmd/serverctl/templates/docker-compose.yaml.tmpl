@@ -3,6 +3,7 @@
 version: '3.7'
 services:
   {{ template "relay" .Relay }}
+  {{ template "proxy" .Proxy }}
   {{- with .DesktopList }}
     {{ range . }}
       {{ template "desktop" . }}

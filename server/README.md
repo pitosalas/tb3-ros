@@ -9,7 +9,7 @@ A cli utility for creating a `tb3-ros` server.
 
 ## Use
 
-### Config
+### Config.yaml
 
 Configure the server
 
@@ -22,7 +22,7 @@ mv config.yaml.example config.yaml
 `Up` starts the server based on `config.yaml`
 
 ```bash
-./serverctl up -c config.yaml -d
+./serverctl up -c config.yaml
 ```
 
 ### Down
@@ -35,7 +35,7 @@ mv config.yaml.example config.yaml
 
 ### Generate
 
-`Generate` generates the `docker-compose.yaml`
+`Generate` generates the `docker-compose.yaml`. For generated example, see `docker-compose.yaml.example`.
 
 ```bash
 ./serverctl generate -c config.yaml

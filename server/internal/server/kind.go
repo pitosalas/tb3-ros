@@ -6,16 +6,21 @@ import (
 
 type Services struct {
 	DesktopList []*Service
+	Proxy       *Service
 	Relay       *Service
 	Network     *Network
+	Config      *ConfigFile
 }
 
 type Service struct {
+	Name          string
 	ServiceName   string
 	ContainerName string
 	HostName      string
 	Port          map[string]int
-	Secret        map[string]string
+	Secrets       map[string]string
+	Files         map[string]string
+	Hosts         map[string]string
 	Network       *Network
 	IPv4Address   net.IP
 	Volume        *Volume

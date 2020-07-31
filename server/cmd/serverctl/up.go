@@ -23,12 +23,6 @@ func UpCommand() *cli.Command {
 				TakesFile:   true,
 				Required:    true,
 			},
-			&cli.BoolFlag{
-				Name:    "detach",
-				Usage:   "Detached mode: Run containers in the background, print new container names.",
-				Aliases: []string{"d"},
-				Value:   false,
-			},
 		},
 		Action: upAction(),
 	}
@@ -42,8 +36,8 @@ func upAction() cli.ActionFunc {
 		}
 
 		// Create data directories.
-		config, _ := server.ParseConfig(ctx.String("config"))
-		for _, d := range config.DesktopList {
+		services, _ := server.ParseConfig(ctx.String("config"))
+		for _, d := range services.DesktopList {
 			path := d.Volume.Path
 			if _, err := os.Stat(path); err != nil {
 				if os.IsNotExist(err) {
@@ -58,8 +52,9 @@ func upAction() cli.ActionFunc {
 		// Start compose file.
 		args := []string{
 			"-f",
-			composeFileName,
+			buildPath(services.Config.Server.BuildPath, server.ComposeFileName),
 			"up",
+			"-d",
 		}
 		if ctx.Bool("detach") {
 			args = append(args, "-d")
@@ -68,10 +63,12 @@ func upAction() cli.ActionFunc {
 		cmd := exec.Command("docker-compose", args...)
 
 		log.Println("starting server...")
-		if out, err := cmd.CombinedOutput(); err != nil {
-			return fmt.Errorf("failed to start docker-compose: %s", out)
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("failed to start server: %s", err)
 		}
+		log.Printf("%s", out)
 
-		return cmd.Wait()
+		return nil
 	}
 }

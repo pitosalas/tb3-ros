@@ -4,8 +4,8 @@
     hostname: {{ .HostName }}
     image: xumr0x/tailscale-relay:latest
     environment:
-      ROUTES: {{ .Secret.ROUTES }}
-      AUTHKEY: {{ .Secret.AUTHKEY }}
+      ROUTES: {{ .Secrets.ROUTES }}
+      AUTHKEY: {{ .Secrets.AUTHKEY }}
     cap_add:
       - NET_ADMIN
     volumes:

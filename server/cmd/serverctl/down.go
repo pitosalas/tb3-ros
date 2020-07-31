@@ -5,6 +5,7 @@ import (
 	"log"
 	"os/exec"
 
+	"github.com/pitosalas/tb3-ros/server/internal/server"
 	"github.com/urfave/cli/v2"
 )
 
@@ -33,19 +34,23 @@ func downAction() cli.ActionFunc {
 			return fmt.Errorf("failed to generate compose file: %v", err)
 		}
 
+		services, _ := server.ParseConfig(ctx.String("config"))
+
 		args := []string{
 			"-f",
-			composeFileName,
+			buildPath(services.Config.Server.BuildPath, server.ComposeFileName),
 			"down",
 		}
 
 		cmd := exec.Command("docker-compose", args...)
 
 		log.Println("stopping server...")
-		if out, err := cmd.CombinedOutput(); err != nil {
-			return fmt.Errorf("failed to stop docker-compose: %s", out)
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("failed to stop server: %s", err)
 		}
+		log.Printf("%s", out)
 
-		return cmd.Wait()
+		return nil
 	}
 }

@@ -1,4 +1,7 @@
-server_name: example
+server:
+  name: example
+  domain: roslab.example.com
+  build_path: ./build
 desktop:
   names:
     - "mars"
@@ -11,7 +14,10 @@ desktop:
     directory: ./data
 relay:
   authkey: tskey-123abc
-  docker_ip: 172.99.0.2
+  docker_ip: 172.99.0.255
+proxy:
+  http_port: 80
+  tls_port: 443
 network:
   subnet: 172.99.0.0/16
   gateway: 172.99.0.1
