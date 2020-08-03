@@ -7,6 +7,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var (
+	BuildVersion = "development"
+)
+
 func main() {
 	app := &cli.App{
 		Commands: []*cli.Command{

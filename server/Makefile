@@ -36,17 +36,14 @@ setup:
 	@go mod init \
 		&& go mod tidy \
 		&& go mod vendor
-	
-# helper rule for deployment
-check-environment:
-ifndef ENV
-	$(error ENV not set, allowed values - `staging` or `production`)
-endif
 
 .PHONY: docker-build
 ## docker-build: builds the stringifier docker image to registry
 docker-build: build
-	docker build -t ${APP}:${COMMIT_SHA} .
+	DOCKER_BUILDKIT=1 docker build \
+		--build-arg APP=${APP} \
+		--build-arg COMMIT_SHA=${COMMIT_SHA} \
+		-o bin .
 
 .PHONY: help
 ## help: Prints this help message
