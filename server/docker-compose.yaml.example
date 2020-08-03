@@ -28,6 +28,7 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.ssh.address=:22"
     ports:
       - '80:80'
       - '443:443'
@@ -76,6 +77,10 @@ services:
       - "traefik.http.routers.mars_vscode.service=mars_vscode"
       - "traefik.http.services.mars_vscode.loadbalancer.server.port=8080"
       - "traefik.http.routers.mars_vscode.entrypoints=web"
+      - "traefik.tcp.routers.mars_ssh.rule=HostSNI(`ssh.mars.roslab.example.com`)"
+      - "traefik.tcp.routers.mars_ssh.service=mars_ssh"
+      - "traefik.tcp.services.mars_ssh.loadbalancer.server.port=22"
+      - "traefik.tcp.routers.mars_ssh.entrypoints=ssh"
 
     
       
@@ -111,6 +116,10 @@ services:
       - "traefik.http.routers.saturn_vscode.service=saturn_vscode"
       - "traefik.http.services.saturn_vscode.loadbalancer.server.port=8080"
       - "traefik.http.routers.saturn_vscode.entrypoints=web"
+      - "traefik.tcp.routers.saturn_ssh.rule=HostSNI(`ssh.saturn.roslab.example.com`)"
+      - "traefik.tcp.routers.saturn_ssh.service=saturn_ssh"
+      - "traefik.tcp.services.saturn_ssh.loadbalancer.server.port=22"
+      - "traefik.tcp.routers.saturn_ssh.entrypoints=ssh"
 
     
       
@@ -146,6 +155,10 @@ services:
       - "traefik.http.routers.jupiter_vscode.service=jupiter_vscode"
       - "traefik.http.services.jupiter_vscode.loadbalancer.server.port=8080"
       - "traefik.http.routers.jupiter_vscode.entrypoints=web"
+      - "traefik.tcp.routers.jupiter_ssh.rule=HostSNI(`ssh.jupiter.roslab.example.com`)"
+      - "traefik.tcp.routers.jupiter_ssh.service=jupiter_ssh"
+      - "traefik.tcp.services.jupiter_ssh.loadbalancer.server.port=22"
+      - "traefik.tcp.routers.jupiter_ssh.entrypoints=ssh"
 
     
   

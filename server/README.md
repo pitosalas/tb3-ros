@@ -19,9 +19,7 @@ mv bin/linux/serverctl .
 mv bin/darwin/serverctl .
 ```
 
-## Use
-
-### Config.yaml
+## Configure
 
 Configure the server by editing `config.yaml`
 
@@ -56,17 +54,21 @@ network:
   gateway: 172.99.0.1         # Internal subnet gateway
 ```
 
+## Use
+
 ### Up
 
-`Up` starts the server based on `config.yaml`
+`Up` starts the server based on `config.yaml`.
 
 ```bash
 ./serverctl up -c config.yaml
 ```
 
+Check `build/list.md` for all the credentials of every desktop and traefik interface.
+
 ### Down
 
-`Down` stops the server
+`Down` stops the server.
 
 ```bash
 ./serverctl down -c config.yaml
@@ -74,8 +76,15 @@ network:
 
 ### Generate
 
-`Generate` generates the `docker-compose.yaml`. For generated example, see `docker-compose.yaml.example`.
+`Generate` generates the files for starting the server.
 
 ```bash
 ./serverctl generate -c config.yaml
 ```
+
+2 Files will be generated
+
+- `build/docker-compose.yaml`
+- `build/list.md`
+
+`build/list.md` contains all the credentials of every desktop and traefik interface.

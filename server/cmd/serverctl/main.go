@@ -13,6 +13,7 @@ var (
 
 func main() {
 	app := &cli.App{
+		Version: BuildVersion,
 		Commands: []*cli.Command{
 			GenerateCommand(),
 			UpCommand(),
