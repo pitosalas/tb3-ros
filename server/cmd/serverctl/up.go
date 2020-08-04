@@ -37,15 +37,10 @@ func upAction() cli.ActionFunc {
 
 		// Create data directories.
 		services, _ := server.ParseConfig(ctx.String("config"))
-		for _, d := range services.DesktopList {
+		for _, d := range append(services.DesktopList, services.Relay) {
 			path := d.Volume.Path
-			if _, err := os.Stat(path); err != nil {
-				if os.IsNotExist(err) {
-					log.Printf("%s not found, creating directory...", path)
-					os.MkdirAll(path, 0700)
-				} else {
-					log.Fatalf("failed to lookup data directory: %v", err)
-				}
+			if err := prepareDirectory(path); err != nil {
+				return fmt.Errorf("failed to prepare data directory: %v", err)
 			}
 		}
 
@@ -55,9 +50,6 @@ func upAction() cli.ActionFunc {
 			buildPath(services.Config.Server.BuildPath, server.ComposeFileName),
 			"up",
 			"-d",
-		}
-		if ctx.Bool("detach") {
-			args = append(args, "-d")
 		}
 
 		cmd := exec.Command("docker-compose", args...)
@@ -71,4 +63,17 @@ func upAction() cli.ActionFunc {
 
 		return nil
 	}
+}
+
+func prepareDirectory(directory string) error {
+	if _, err := os.Stat(directory); err != nil {
+		if os.IsNotExist(err) {
+			log.Printf("%s not found, creating directory...", directory)
+			os.MkdirAll(directory, 0700)
+		} else {
+			log.Fatalf("failed to lookup directory: %v", err)
+		}
+	}
+
+	return nil
 }

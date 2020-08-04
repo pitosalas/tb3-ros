@@ -9,7 +9,11 @@
     cap_add:
       - NET_ADMIN
     volumes:
-      - 'tailscale-data:/tailscale'
+      - type: volume
+        source: {{ .Volume.Name }}
+        target: /tailscale
+        volume:
+            nocopy: false
     networks:
       {{ .Network.Name }}:
         ipv4_address: {{ .IPv4Address }}

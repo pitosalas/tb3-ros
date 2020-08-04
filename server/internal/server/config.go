@@ -99,8 +99,7 @@ func (c *ConfigFile) desktopList(network *Network) ([]*Service, error) {
 			password = c.Desktop.Security.Password
 		}
 
-		vName := fmt.Sprintf("rospersistent-%s", name)
-		vPath, err := volumePath(c.Desktop.Data.Directory, vName)
+		vName, vPath, err := persistentVolume(c.Desktop.Data.Directory, name)
 		if err != nil {
 			return nil, fmt.Errorf("failed to create desktop list: %v", err)
 		}
@@ -132,6 +131,11 @@ func (c *ConfigFile) desktopList(network *Network) ([]*Service, error) {
 func (c *ConfigFile) relay(network *Network) (*Service, error) {
 	name := fmt.Sprintf("%s-relay", c.Server.Name)
 
+	vName, vPath, err := persistentVolume(c.Desktop.Data.Directory, name)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create relay: %v", err)
+	}
+
 	return &Service{
 		ServiceName:   name,
 		ContainerName: name,
@@ -143,6 +147,10 @@ func (c *ConfigFile) relay(network *Network) (*Service, error) {
 		},
 		Network:     network,
 		IPv4Address: net.ParseIP(c.Relay.DockerIP).To4(),
+		Volume: &Volume{
+			Name: vName,
+			Path: vPath,
+		},
 	}, nil
 }
 
@@ -179,10 +187,20 @@ func (c *ConfigFile) network() (*Network, error) {
 	}, nil
 }
 
+func persistentVolume(directory string, name string) (string, string, error) {
+	vName := fmt.Sprintf("rospersistent-%s", name)
+	vPath, err := volumePath(directory, vName)
+	if err != nil {
+		return "", "", fmt.Errorf("failed to create persistent volume: %v", err)
+	}
+
+	return vName, vPath, nil
+}
+
 func volumePath(directory string, name string) (string, error) {
 	dir, err := filepath.Abs(directory)
 	if err != nil {
-		return "", fmt.Errorf("failed to parse data directory: %v", err)
+		return "", fmt.Errorf("invalid directory: %v", err)
 	}
 
 	return filepath.Join(dir, name), nil
