@@ -25,6 +25,7 @@
       - "traefik.enable=true"
       - "traefik.http.routers.{{ .Name }}_vnc.rule=Host(`vnc.{{ .Name }}.{{ .Secrets.DOMAIN }}`)"
       - "traefik.http.routers.{{ .Name }}_vnc.service={{ .Name }}_vnc"
+      - "traefik.http.routers.{{ .Name }}_vnc.middlewares=redirect_vnc"
       - "traefik.http.services.{{ .Name }}_vnc.loadbalancer.server.port=6080"
       - "traefik.http.routers.{{ .Name }}_vnc.entrypoints=web"
       - "traefik.http.routers.{{ .Name }}_vscode.rule=Host(`code.{{ .Name }}.{{ .Secrets.DOMAIN }}`)"

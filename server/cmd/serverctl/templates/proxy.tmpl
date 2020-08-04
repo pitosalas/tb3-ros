@@ -23,4 +23,6 @@
     labels:
       - "traefik.http.routers.dashboard.rule=Host(`traefik.{{ .Secrets.DOMAIN }}`)"
       - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.middlewares.redirect_vnc.redirectregex.regex=^http:\\/\\/([^\\/]+)\\/?$$"
+      - "traefik.http.middlewares.redirect_vnc.redirectregex.replacement=http://$$1/vnc.html"
 {{ end -}}
