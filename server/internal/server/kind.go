@@ -16,6 +16,7 @@ type Services struct {
 // Service represents a service in the compose file.
 type Service struct {
 	Name          string
+	Owner         string
 	ServiceName   string
 	ContainerName string
 	HostName      string

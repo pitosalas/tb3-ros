@@ -18,10 +18,13 @@ type ConfigFile struct {
 		BuildPath string `yaml:"build_path"`
 	}
 	Desktop struct {
-		Names    []string `yaml:",flow"`
+		Instances []struct {
+			Name  string `yaml:"name"`
+			Owner string `yaml:",omitempty"`
+		} `yaml:",flow"`
 		Security struct {
 			RandomPassword bool   `yaml:"random_password"`
-			Password       string `yaml:",omitempty"`
+			Password       string `yaml:"password,omitempty"`
 		}
 		Data struct {
 			Directory string `yaml:"directory"`
@@ -90,10 +93,10 @@ func (c *ConfigFile) Services() (*Services, error) {
 }
 
 func (c *ConfigFile) desktopList(network *Network) ([]*Service, error) {
-	desktopList := make([]*Service, 0, len(c.Desktop.Names))
+	desktopList := make([]*Service, 0, len(c.Desktop.Instances))
 
-	for _, n := range c.Desktop.Names {
-		name := fmt.Sprintf("%s-%s", c.Server.Name, n)
+	for _, n := range c.Desktop.Instances {
+		name := fmt.Sprintf("%s-%s", c.Server.Name, n.Name)
 
 		var password string
 		if c.Desktop.Security.RandomPassword {
@@ -108,7 +111,8 @@ func (c *ConfigFile) desktopList(network *Network) ([]*Service, error) {
 		}
 
 		s := &Service{
-			Name:          n,
+			Name:          n.Name,
+			Owner:         n.Owner,
 			ServiceName:   name,
 			ContainerName: name,
 			HostName:      name,

@@ -3,10 +3,11 @@ server:
   domain: roslab.example.com
   build_path: ./build
 desktop:
-  names:
-    - "mars"
-    - "saturn"
-    - "jupiter"
+  instances:
+    - name: mars
+      owner: admin@roslab.example.com
+    - name: saturn
+    - name: jupiter
   security:
     random_password: false
     password: dev@ros

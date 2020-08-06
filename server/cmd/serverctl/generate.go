@@ -56,7 +56,7 @@ func generateAction() cli.ActionFunc {
 
 		for _, gFunc := range []generateFunc{
 			generateComposeFile,
-			generateListFile,
+			generateOverviewFile,
 		} {
 			if f, err := gFunc(t, services); err != nil {
 				return fmt.Errorf("failed to write to %s: %v", f, err)
@@ -94,15 +94,15 @@ func generateComposeFile(t *template.Template, s *server.Services) (string, erro
 	return fPath, nil
 }
 
-func generateListFile(t *template.Template, s *server.Services) (string, error) {
-	fPath := buildPath(s.Config.Server.BuildPath, server.ListFileName)
+func generateOverviewFile(t *template.Template, s *server.Services) (string, error) {
+	fPath := buildPath(s.Config.Server.BuildPath, server.OverviewFileName)
 
 	f, err := os.OpenFile(fPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
 	if err != nil {
-		return fPath, fmt.Errorf("failed to create list file: %v", err)
+		return fPath, fmt.Errorf("failed to create overview file: %v", err)
 	}
 
-	if err := t.ExecuteTemplate(f, "generated-list", s); err != nil {
+	if err := t.ExecuteTemplate(f, "overview", s); err != nil {
 		return fPath, fmt.Errorf("failed to write to template: %v", err)
 	}
 

@@ -1,4 +1,4 @@
-{{- define "generated-list" }}
+{{- define "overview" }}
 # {{ .Config.Server.Name }}
 
 Traefik Dashboard: http://traefik.{{ .Config.Server.Domain }}:8080
@@ -14,6 +14,12 @@ Total Desktops: {{ len .DesktopList }}
 {{- with .DesktopList }}
 {{- range . }}
 ## {{ .Name }}
+
+{{- if .Owner }}
+**Owned by `{{ .Owner }}`**
+{{- else }}
+**Not owned**
+{{- end }}
 
 ### Services
 
