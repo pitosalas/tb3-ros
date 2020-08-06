@@ -7,7 +7,9 @@ COMMIT_SHA=$(shell git rev-parse --short HEAD)
 build: clean
 	@echo "Building..."
 	@go generate ./...
-	@go build -o bin/${APP} cmd/${APP}/*.go
+	@go build -ldflags="-X 'main.BuildVersion=${COMMIT_SHA}'" \
+		-o bin/${APP} \
+		cmd/${APP}/*.go
 
 .PHONY: run
 ## run: runs go run main.go

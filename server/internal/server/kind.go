@@ -4,6 +4,7 @@ import (
 	"net"
 )
 
+// Services represents a tb3-ros server.
 type Services struct {
 	DesktopList []*Service
 	Proxy       *Service
@@ -12,6 +13,7 @@ type Services struct {
 	Config      *ConfigFile
 }
 
+// Service represents a service in the compose file.
 type Service struct {
 	Name          string
 	ServiceName   string
@@ -26,12 +28,14 @@ type Service struct {
 	Volume        *Volume
 }
 
+// Network represents the network info of a Service.
 type Network struct {
 	Name    string
 	Subnet  *net.IPNet
 	Gateway net.IP
 }
 
+// Volume represents the volume info of a Service.
 type Volume struct {
 	Name string
 	Path string

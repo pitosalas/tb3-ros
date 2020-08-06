@@ -10,6 +10,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// UpCommand is a CLI command for starting a tb3-ros server.
 func UpCommand() *cli.Command {
 	return &cli.Command{
 		Name:  "up",

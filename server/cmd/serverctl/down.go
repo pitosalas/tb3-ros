@@ -9,6 +9,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// DownCommand is a CLI command for stopping a tb3-ros server.
 func DownCommand() *cli.Command {
 	return &cli.Command{
 		Name:  "down",

@@ -10,6 +10,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// ConfigFile represents a config.yaml file for configuring a tb3-ros server.
 type ConfigFile struct {
 	Server struct {
 		Name      string `yaml:"name"`
@@ -40,6 +41,7 @@ type ConfigFile struct {
 	}
 }
 
+// ParseConfig parses a config.yaml into a list of services.
 func ParseConfig(path string) (*Services, error) {
 	var configFile ConfigFile
 
@@ -56,6 +58,7 @@ func ParseConfig(path string) (*Services, error) {
 	return configFile.Services()
 }
 
+// Services generates a list of desktops, proxy, and relay needed based on the ConfigFile.
 func (c *ConfigFile) Services() (*Services, error) {
 	network, err := c.network()
 	if err != nil {

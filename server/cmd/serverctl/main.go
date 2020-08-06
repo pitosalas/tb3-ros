@@ -8,6 +8,7 @@ import (
 )
 
 var (
+	// BuildVersion is the build version in SHA form which is replaced at build time.
 	BuildVersion = "development"
 )
 

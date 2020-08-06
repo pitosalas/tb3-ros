@@ -17,6 +17,7 @@ import (
 
 type generateFunc func(*template.Template, *server.Services) (string, error)
 
+// GenerateCommand is a CLI command for generating a new tb3-ros server.
 func GenerateCommand() *cli.Command {
 	return &cli.Command{
 		Name:  "generate",
