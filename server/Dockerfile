@@ -16,12 +16,12 @@ RUN mkdir darwin linux
 RUN GOOS=darwin GOARCH=amd64 \
     go build -o darwin/${APP} \
         -ldflags="-X 'main.BuildVersion=${COMMIT_SHA}'" \
-        cmd/${APP}/*.go
+        ./cmd/${APP}/*.go
 
 RUN GOOS=linux GOARCH=amd64 \
     go build -o linux/${APP} \
         -ldflags="-X 'main.BuildVersion=${COMMIT_SHA}'" \
-        cmd/${APP}/*.go
+        ./cmd/${APP}/*.go
 
 FROM scratch AS export
 COPY --from=build /src/darwin /darwin

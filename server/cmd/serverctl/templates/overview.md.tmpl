@@ -11,6 +11,7 @@ Total Desktops: {{ len .DesktopList }}
 {{ end }}
 {{ end }}
 
+{{ $port := .Config.Proxy.HTTPPort }}
 {{- with .DesktopList }}
 {{- range . }}
 ## {{ .Name }}
@@ -25,13 +26,13 @@ Total Desktops: {{ len .DesktopList }}
 
 #### VNC
 
-Address: http://vnc.{{ .Name }}.{{ .Secrets.DOMAIN }}
+Address: http://vnc.{{ .Name }}.{{ .Secrets.DOMAIN }}{{ if ne $port 80 }}{{ $port | printf ":%d" }}{{ end }}/vnc.html
 
 Password: `{{ .Secrets.PASSWORD }}`
 
 #### VSCode
 
-Address: http://code.{{ .Name }}.{{ .Secrets.DOMAIN }}
+Address: http://code.{{ .Name }}.{{ .Secrets.DOMAIN }}{{ if ne $port 80 }}{{ $port | printf ":%d" }}{{ end }}
 
 Password: `{{ .Secrets.PASSWORD }}`
 
