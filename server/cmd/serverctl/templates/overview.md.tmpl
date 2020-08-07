@@ -7,7 +7,7 @@ Total Desktops: {{ len .DesktopList }}
 
 {{ with .DesktopList }}
 {{- range . }}
-- [{{.Name}}](##{{.Name}})
+- [{{.Name}}](#{{.Name}})
 {{ end }}
 {{ end }}
 

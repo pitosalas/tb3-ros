@@ -41,7 +41,7 @@ setup:
 
 .PHONY: docker-build
 ## docker-build: builds the stringifier docker image to registry
-docker-build: build
+docker-build:
 	DOCKER_BUILDKIT=1 docker build \
 		--build-arg APP=${APP} \
 		--build-arg COMMIT_SHA=${COMMIT_SHA} \
