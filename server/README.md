@@ -1,12 +1,12 @@
-# serverctl
+# tb3-ros serverctl
 
 A cli utility for creating a `tb3-ros` server.
 
 ## Requirement
 
-- `docker ce`
+- `docker ce > 18.09`
 - `docker-compose`
-- Domain name with wildcard A record, ie. `A  *.roslab.example.com  123.123.123.123`
+- Domain name with wildcard A record pointing the server's IP, ie. `A  *.roslab.example.com  123.123.123.123`
 - Tailscale [Authkey](https://login.tailscale.com/admin/authkeys)
 
 ## Install
@@ -34,10 +34,11 @@ server:
   domain: roslab.example.com  # Hosting server's domain
   build_path: ./build         # Path for outputting build files (ie. docker-compose.yaml)
 desktop:
-  names:
-    - "mars"                  # Names of the desktops
-    - "saturn"
-    - "jupiter"
+  instances:
+    - name: mars              # Name of desktop
+      owner: Admin            # Name of desktop's owner 
+    - name: saturn
+    - name: jupiter
   security:
     random_password: false    # Generate random password for each desktop or not
     password: dev@ros
@@ -64,7 +65,7 @@ network:
 ./serverctl up -c config.yaml
 ```
 
-Check `build/list.md` for all the credentials of every desktop and traefik interface.
+Check `build/overview.md` for all the credentials of every desktop and traefik interface.
 
 ### Down
 
@@ -85,6 +86,28 @@ Check `build/list.md` for all the credentials of every desktop and traefik inter
 2 Files will be generated
 
 - `build/docker-compose.yaml`
-- `build/list.md`
+- `build/overview.md`
 
-`build/list.md` contains all the credentials of every desktop and traefik interface.
+`build/overview.md` contains all the credentials of every desktop and traefik interface.
+
+## Network
+
+The server uses Tailscale to form a private network connecting desktops and robots.
+
+When the server is started with `up`, it creates a relay that connects all desktops to the Tailscale network, allowing them to connect to any robots on the network.
+
+```
+
+desktop-1 \        _ _ _ _ _        / robot-1 100.89.2.122
+           \      |         |      /
+desktop-2 - - - - |  Relay  | - - - - robot-2 100.99.31.234
+           /      |_ _ _ _ _|      \
+desktop-3 /      100.64.10.101      \ robot-3 100.86.232.111
+
+```
+
+To connect to any robot, simply do:
+
+```bash
+ssh root@100.89.2.122 # IP of robot-1
+```
