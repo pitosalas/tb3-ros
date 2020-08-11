@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 infof=`tput setaf 6`
 errorf=`tput setaf 1`
 donef=`tput setaf 2`
