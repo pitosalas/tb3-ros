@@ -27,7 +27,7 @@ if ! command -v tailscale &> /dev/null; then
   echo "${infof}  Installing Tailscale client${reset}"
   echo "${infof}  Adding Tailscale repo${reset}"
 
-  sudo apt-get install -y apt-transport-https curl net-tools
+  sudo apt-get install -y apt-transport-https curl
   curl ${gpg} | sudo apt-key add -
   curl ${list} | sudo tee /etc/apt/sources.list.d/tailscale.list
 
@@ -36,12 +36,12 @@ if ! command -v tailscale &> /dev/null; then
   echo
 fi
 
-if pgrep tailscaled; then
-  echo "${donef}  Connected. IP address: $(ifconfig tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
+if pgrep tailscaled &> /dev/null; then
+  echo "${donef}  Connected. IP address: $(ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
 elif [ "$1" != "" ]; then
   echo -ne "${infof}  Connecting...\r${reset}"
   sudo tailscale up --authkey=$1
-  echo "${donef}  Connected. IP address: $(ifconfig tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
+  echo "${donef}  Connected. IP address: $(ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
 else
   echo "${errorf}  ERROR: Missing Authkey${reset}"
   echo "${errorf}  Please run again with: ./pi_connect.sh tskey-123abc...${reset}"
