@@ -27,7 +27,7 @@ if ! command -v tailscale &> /dev/null; then
   echo "${infof}  Installing Tailscale client${reset}"
   echo "${infof}  Adding Tailscale repo${reset}"
 
-  sudo apt-get install -y apt-transport-https curl
+  sudo apt-get install -y apt-transport-https curl net-tools
   curl ${gpg} | sudo apt-key add -
   curl ${list} | sudo tee /etc/apt/sources.list.d/tailscale.list
 
