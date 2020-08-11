@@ -36,7 +36,9 @@ if ! command -v tailscale &> /dev/null; then
   echo
 fi
 
-if [ "$1" != "" ]; then
+if pgrep tailscaled; then
+  echo "${donef}  Connected. IP address: $(ifconfig tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
+elif [ "$1" != "" ]; then
   echo -ne "${infof}  Connecting...\r${reset}"
   sudo tailscale up --authkey=$1
   echo "${donef}  Connected. IP address: $(ifconfig tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
