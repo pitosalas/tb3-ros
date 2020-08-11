@@ -37,12 +37,25 @@ if ! command -v tailscale &> /dev/null; then
 fi
 
 if pgrep tailscaled &> /dev/null; then
-  echo "${donef}  Connected. IP address: $(ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
-elif [ "$1" != "" ]; then
-  echo -ne "${infof}  Connecting...\r${reset}"
-  sudo tailscale up --authkey=$1
-  echo "${donef}  Connected. IP address: $(ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}')${reset}"
+  addr=`ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}'`
+  if [ -n "${addr}" ]; then
+    echo "${donef}  Connected. IP address: ${addr}${reset}"
+    exit 0
+  fi
+fi
+
+if [ -n "$1" ]; then
+  echo -ne "${infof}  Connecting... Might takes up to 5 minutes \r${reset}"
+  sudo tailscale up --authkey=$1 --accept-routes
+
+  addr=`ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}'`
+  if [ -n "${addr}" ]; then
+    echo "${donef}  Connected. IP address: ${addr}${reset}"
+  else
+    echo "${errorf}  ERROR: Connection timeout${reset}"
+    echo "${errorf}  Please run again with: sudo ./pi_connect.sh tskey-123abc...${reset}"
+  fi
 else
   echo "${errorf}  ERROR: Missing Authkey${reset}"
-  echo "${errorf}  Please run again with: ./pi_connect.sh tskey-123abc...${reset}"
+  echo "${errorf}  Please run again with: sudo ./pi_connect.sh tskey-123abc...${reset}"
 fi
