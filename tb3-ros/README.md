@@ -50,7 +50,6 @@ Standalone docker image for running `tb3-ros`.
 * Browser: http://0.0.0.0:6080/vnc.html
 * Click on desktop and get a tiny menu. Click "terminal"
 * In that terminal do `source setup.bash`
-* Now click on desktop and get a second terminal with a legible font
 
 ### Accessing a virtual instance of VSCode for coding
 
@@ -70,7 +69,6 @@ Standalone docker image for running `tb3-ros`.
 * Open a terminal window and do: `roscore`
 * Open a different terminal window and do: `roslaunch turtlebot3_fake turtlebot3_fake.launch`
 * Open a different terminal window and do: `roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch`
-
 
 ## Access IDE
 http://0.0.0.0:80

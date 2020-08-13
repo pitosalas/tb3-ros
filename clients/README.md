@@ -1,6 +1,6 @@
-# tb3-ros clients
+# Private Networking
 
-## VPN Client (raspberry pi)
+## Client (raspberry pi)
 
 Supported OS: `Raspbian 10, Ubuntu 18.04, Ubuntu 20.04`
 
@@ -16,7 +16,7 @@ sudo ./pi_connect.sh tskey-123abc456
 Connected. IP address: 100.xx.xxx.xxx
 ```
 
-Once the robot is successfully connected to the network, you can try to reach it via `tb3-ros` virtual desktop
+Once the robot is successfully connected to the network, you can try to reach it via cloud desktop
 
 ```bash
 ssh pi@100.xx.xxx.xxx

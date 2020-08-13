@@ -35,8 +35,8 @@ server:
   build_path: ./build         # Path for outputting build files (ie. docker-compose.yaml)
 desktop:
   instances:
-    - name: mars              # Name of desktop
-      owner: Admin            # Name of desktop's owner 
+    - name: mars              # Name of cloud desktop
+      owner: Admin            # Name of cloud desktop's owner 
     - name: saturn
     - name: jupiter
   security:
@@ -65,7 +65,7 @@ network:
 ./serverctl up -c config.yaml
 ```
 
-Check `build/overview.md` for all the credentials of every desktop and traefik interface.
+Check `build/overview.md` for all the credentials of every cloud desktop and traefik interface.
 
 ### Down
 
@@ -88,13 +88,13 @@ Check `build/overview.md` for all the credentials of every desktop and traefik i
 - `build/docker-compose.yaml`
 - `build/overview.md`
 
-`build/overview.md` contains all the credentials of every desktop and traefik interface.
+`build/overview.md` contains all the credentials of every cloud desktop and traefik interface.
 
 ## Network
 
-The server uses Tailscale to form a private network connecting desktops and robots.
+The server uses Tailscale to form a private network connecting cloud desktops and robots.
 
-When the server is started with `up`, it creates a relay that connects all desktops to the Tailscale network, allowing them to connect to any robots on the network.
+When the server is started with `up`, it creates a relay that connects all cloud desktops to the Tailscale network, allowing them to connect to any robots on the network.
 
 ```
 

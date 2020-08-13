@@ -20,6 +20,10 @@ case "$( lsb_release -d | grep -Eoi 'Ubuntu 18.04|Ubuntu 20.04|Debian' )" in
     gpg=https://pkgs.tailscale.com/stable/ubuntu/focal.gpg
     list=https://pkgs.tailscale.com/stable/ubuntu/focal.list
     ;;
+  *)
+    echo "${errorf}  Unsupported OS${reset}"
+    exit 1
+    ;;
 esac
 
 if ! command -v tailscale &> /dev/null; then
@@ -37,7 +41,7 @@ if ! command -v tailscale &> /dev/null; then
 fi
 
 if pgrep tailscaled &> /dev/null; then
-  addr=`ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}'`
+  addr=`ip addr show dev tailscale0 | grep -Eo '([0-9]{1,3}[\.]){3}[0-9]{1,3}'`
   if [ -n "${addr}" ]; then
     echo "${donef}  Connected. IP address: ${addr}${reset}"
     exit 0
@@ -48,7 +52,7 @@ if [ -n "$1" ]; then
   echo -ne "${infof}  Connecting... Might takes up to 5 minutes \r${reset}"
   sudo tailscale up --authkey=$1 --accept-routes
 
-  addr=`ip address show dev tailscale0 | grep 'inet ' | awk '{print $2}'`
+  addr=`ip addr show dev tailscale0 | grep -Eo '([0-9]{1,3}[\.]){3}[0-9]{1,3}'`
   if [ -n "${addr}" ]; then
     echo "${donef}  Connected. IP address: ${addr}${reset}"
   else
