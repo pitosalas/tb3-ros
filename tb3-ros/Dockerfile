@@ -1,23 +1,31 @@
-# For evertthinbg great
 FROM johannhaselberger/coros:latest
 
-WORKDIR /my_ros_data
+# BASE IMAGE CUSTOMIZATIONS -----------------------------------------------------------------------
 
-ADD files/setup.sh .
-ADD files/.jwmrc /entry/
-COPY files/sshd_config /etc/ssh/
+# Use OpenSWR driver for better OpenGL performance
+ENV GALLIUM_DRIVER=swr
+# Install system dependencies
+RUN apt-get update -y
+RUN apt-get install -y \
+    iproute2 \
+    iputils-ping \
+    lxterminal
+
+# COURSE SPECIFIC CONFIGURATIONS ------------------------------------------------------------------
+WORKDIR /my_ros_data
 
 ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
     HOME=/my_ros_data \
     NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws \
-    SHELL=/bin/bash \
-    GALLIUM_DRIVER=swr
+    SHELL=/bin/bash
+
+ADD files/setup.sh .
+ADD files/.jwmrc /entry/
+COPY files/sshd_config /etc/ssh/
 
 RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
-
-RUN mkdir -p catkin_ws/src
 
 WORKDIR /my_ros_data/catkin_ws/src
 RUN source /opt/ros/melodic/setup.bash && catkin_init_workspace
@@ -40,26 +48,22 @@ RUN source /opt/ros/melodic/setup.bash && catkin_make
 
 WORKDIR /my_ros_data
 
-RUN sudo apt -y update
+RUN apt -y update
 RUN apt -y upgrade
 RUN rosdep update
 
-# Install system dependencies
-RUN apt-get install -y \
-    iproute2 \
-    iputils-ping \
-    lxterminal
-
-RUN apt -y install ros-melodic-slam-gmapping
-RUN apt -y install ros-melodic-map-server
-RUN apt -y install ros-melodic-move-base
-RUN apt -y install ros-melodic-dwa-local-planner
-RUN apt -y install ros-melodic-fiducials
-RUN pip install redis
+RUN apt-get -y install \
+    ros-melodic-slam-gmapping \
+    ros-melodic-map-server \
+    ros-melodic-move-base \
+    ros-melodic-dwa-local-planner \
+    ros-melodic-fiducials \
+    ros-melodic-arbotix-* \
+    ros-melodic-turtlebot*
 
 RUN rosdep update
-RUN sudo apt-get -y install ros-melodic-arbotix-*
-RUN sudo apt-get -y install ros-melodic-turtlebot*
+
+RUN pip install redis
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
