@@ -1,5 +1,7 @@
 # tb3-ros
 
+**This image contains some customizations for class Cosi119a@brandeis**
+
 ## Intro
 
 This is a docker package to allow you to run ROS and related applications through your browser. The following is installed:
