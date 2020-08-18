@@ -39,14 +39,6 @@ if ! command -v tailscale &> /dev/null; then
   sudo apt-get update -y && apt-get install -y tailscale
 fi
 
-if pgrep tailscaled &> /dev/null; then
-  addr=`ip addr show dev tailscale0 | grep -Eo '([0-9]{1,3}[\.]){3}[0-9]{1,3}'`
-  if [ -n "${addr}" ]; then
-    echo "${donef}  Connected. IP address: ${addr}${reset}"
-    exit 0
-  fi
-fi
-
 if [ -n "$1" ]; then
   echo -ne "${infof}  Connecting... Might takes up to 5 minutes \r${reset}"
   sudo tailscale up --authkey=$1 --accept-routes 2>&1
