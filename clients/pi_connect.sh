@@ -37,7 +37,6 @@ if ! command -v tailscale &> /dev/null; then
 
   echo "${infof}  Installing Tailscale${reset}"
   sudo apt-get update -y && apt-get install -y tailscale
-  echo
 fi
 
 if pgrep tailscaled &> /dev/null; then
@@ -50,7 +49,7 @@ fi
 
 if [ -n "$1" ]; then
   echo -ne "${infof}  Connecting... Might takes up to 5 minutes \r${reset}"
-  sudo tailscale up --authkey=$1 --accept-routes
+  sudo tailscale up --authkey=$1 --accept-routes 2>&1
 
   addr=`ip addr show dev tailscale0 | grep -Eo '([0-9]{1,3}[\.]){3}[0-9]{1,3}'`
   if [ -n "${addr}" ]; then
