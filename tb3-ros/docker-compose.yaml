@@ -5,6 +5,7 @@ services:
     image: cosi119/tb3-ros:latest
     ports:
       - '80:8080'
+      - '2222:2222'
       #- '5900:5900'
       - '6080:6080'
     volumes:

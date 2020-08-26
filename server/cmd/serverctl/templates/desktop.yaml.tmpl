@@ -6,7 +6,7 @@
     ports:
       - '8080'
       - '6080'
-      - '22'
+      - '2222'
     environment:
       GW_IP: {{ .Secrets.GW_IP }}
       RELAY_IP: {{ .Secrets.RELAY_IP }}
@@ -33,6 +33,6 @@
       - "traefik.http.routers.{{ .Name }}_vscode.entrypoints=http"
       - "traefik.tcp.routers.{{ .Name }}_ssh.rule=HostSNI(`ssh.{{ .Name }}.{{ .Secrets.DOMAIN }}`)"
       - "traefik.tcp.routers.{{ .Name }}_ssh.service={{ .Name }}_ssh"
-      - "traefik.tcp.services.{{ .Name }}_ssh.loadbalancer.server.port=22"
+      - "traefik.tcp.services.{{ .Name }}_ssh.loadbalancer.server.port=2222"
       - "traefik.tcp.routers.{{ .Name }}_ssh.entrypoints=ssh"
 {{ end -}}
