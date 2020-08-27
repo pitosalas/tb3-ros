@@ -6,10 +6,6 @@ Standalone docker image for running `tb3-ros`.
 
 ### Installation
 
-* Install on your computer by cloning this github repo
-* Currently supported on mac with some testing 
-* Linux has had no testing
-
 #### Mac Install
 * Install Docker for Mac. See [instructions](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)
 * Clone this repo
@@ -18,14 +14,20 @@ Standalone docker image for running `tb3-ros`.
   ```
 
 #### Windows Install
+**Windows has had limited testing!!**
+
 * Install Docker for Windows. See [instructions](https://hub.docker.com/editions/community/docker-ce-desktop-windows/)
 * Clone this repo
 * Once Docker is installed, go to `Settings` -> `Resources` -> `File Sharing`
   * Check the "+" sign and add the directory of this repo, i.e `C:\Users\Robot\Documents\tb3-ros`
 
+#### Linux Install
+* You need both `docker` and `docker-compose` installed
+* Clone this repo
+
 ### Launching it
 
-#### Mac Launch
+#### Mac/Linux Launch
 * Start the container
   ```bash
   make start
@@ -61,7 +63,7 @@ Standalone docker image for running `tb3-ros`.
 * To enable ssh, first login using virtual desktop/VScode
 * Open up the terminal
 * Run `sudo passwd root` to setup a password
-* To SSH in: `ssh root@host -p 222n`, type in the previous password
+* To SSH in: `ssh root@host -p 2222`, type in the previous password
 
 ## Playing around
 
