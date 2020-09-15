@@ -3,13 +3,25 @@ FROM johannhaselberger/coros:latest
 # BASE IMAGE CUSTOMIZATIONS -----------------------------------------------------------------------
 
 # Use OpenSWR driver for better OpenGL performance
-ENV GALLIUM_DRIVER=swr
+ENV GALLIUM_DRIVER=swr \
+    SHELL=/bin/bash
+
 # Install system dependencies
 RUN apt-get update -y
 RUN apt-get install -y \
     iproute2 \
     iputils-ping \
-    lxterminal
+    lxterminal \
+    locales
+
+# Fix locale issue
+RUN locale-gen en_US.UTF-8 && \
+    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+
+# Python3 support
+RUN apt-get install -y \
+    python3-pip \
+    python3-yaml
 
 # COURSE SPECIFIC CONFIGURATIONS ------------------------------------------------------------------
 WORKDIR /my_ros_data
@@ -17,9 +29,9 @@ WORKDIR /my_ros_data
 ENV TB3_MODEL=burger \
     TURTLEBOT3_MODEL=burger \
     HOME=/my_ros_data \
-    NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws \
-    SHELL=/bin/bash
+    NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws
 
+# Copy needed files
 ADD files/setup.sh .
 ADD files/.jwmrc /entry/
 COPY files/sshd_config /etc/ssh/
@@ -64,6 +76,9 @@ RUN apt-get -y install \
 RUN rosdep update
 
 RUN pip install redis
+RUN pip3 install \
+    rospkg \
+    catkin_pkg
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
