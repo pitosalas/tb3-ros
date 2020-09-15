@@ -10,8 +10,6 @@
             xlock -mode blank
         </Program>
         <Separator/>
-        <Restart label="Restart" icon="restart.png"/>
-        <Exit label="Exit" confirm="true" icon="quit.png"/>
     </RootMenu>
 
     <!-- Options for program groups. -->
