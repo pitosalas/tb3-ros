@@ -53,7 +53,10 @@ RUN git clone https://github.com/campusrover/prrexamples.git
 RUN git clone https://github.com/campusrover/gen5.git
 RUN git clone https://github.com/MoffKalast/rbx1.git
 RUN git clone https://github.com/campusrover/robot_services.git
-# RUN git clone https://github.com/campusrover/gpg_bran.git
+RUN git clone https://github.com/campusrover/gpg_bran4.git
+RUN git clone https://github.com/campusrover/rosutils.git
+RUN git clone https://github.com/ros-gopigo3/gopigo3.git
+RUN git clone https://github.com/PacktPublishing/Hands-On-ROS-for-Robotics-Programming.git
 
 WORKDIR /my_ros_data/catkin_ws
 RUN source /opt/ros/melodic/setup.bash && catkin_make
