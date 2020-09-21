@@ -55,17 +55,12 @@ RUN git clone https://github.com/MoffKalast/rbx1.git
 RUN git clone https://github.com/campusrover/robot_services.git
 RUN git clone https://github.com/campusrover/gpg_bran4.git
 RUN git clone https://github.com/campusrover/rosutils.git
-RUN git clone https://github.com/ros-gopigo3/gopigo3.git
 RUN git clone https://github.com/PacktPublishing/Hands-On-ROS-for-Robotics-Programming.git
-
-WORKDIR /my_ros_data/catkin_ws
-RUN source /opt/ros/melodic/setup.bash && catkin_make
 
 WORKDIR /my_ros_data
 
 RUN apt -y update
 RUN apt -y upgrade
-RUN rosdep update
 
 RUN apt-get -y install \
     ros-melodic-slam-gmapping \
