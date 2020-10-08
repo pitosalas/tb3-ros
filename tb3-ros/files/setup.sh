@@ -3,6 +3,10 @@ export TB3_MODEL=burger
 export TURTLEBOT3_MODEL=burger
 export HOME=/my_ros_data
 export NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws
+# export ROBOT_IP=xx.xx.xx.xx 
+
+source /my_ros_data/rosutils/common_alias.bash
+rset cloud
 
 source /opt/ros/melodic/setup.bash
 source /my_ros_data/catkin_ws/devel/setup.bash

@@ -38,6 +38,7 @@ COPY files/sshd_config /etc/ssh/
 
 RUN echo 'echo "[running .bashrc]"' >> .bashrc
 RUN echo "source /my_ros_data/setup.sh" >> .bashrc
+RUN git clone https://github.com/campusrover/rosutils.git
 
 WORKDIR /my_ros_data/catkin_ws/src
 RUN source /opt/ros/melodic/setup.bash && catkin_init_workspace
@@ -54,7 +55,6 @@ RUN git clone https://github.com/campusrover/gen5.git
 RUN git clone https://github.com/MoffKalast/rbx1.git
 RUN git clone https://github.com/campusrover/robot_services.git
 RUN git clone https://github.com/campusrover/gpg_bran4.git
-RUN git clone https://github.com/campusrover/rosutils.git
 RUN git clone https://github.com/PacktPublishing/Hands-On-ROS-for-Robotics-Programming.git
 
 WORKDIR /my_ros_data
