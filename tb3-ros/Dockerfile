@@ -1,4 +1,4 @@
-FROM johannhaselberger/coros:latest
+FROM cosi119/coros:latest
 
 # BASE IMAGE CUSTOMIZATIONS -----------------------------------------------------------------------
 
