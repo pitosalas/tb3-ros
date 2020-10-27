@@ -1,25 +1,31 @@
-FROM cosi119/coros:latest
+FROM dorowu/ubuntu-desktop-lxde-vnc:bionic
 
 # BASE IMAGE CUSTOMIZATIONS -----------------------------------------------------------------------
 
-# Use OpenSWR driver for better OpenGL performance
-ENV GALLIUM_DRIVER=swr \
-    SHELL=/bin/bash
-
 # Install system dependencies
-RUN apt-get update -y
-RUN apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     iproute2 \
     iputils-ping \
-    lxterminal \
-    locales
+    python \
+    python-pip \
+    python-dev \
+    python-mako \
+    nano \
+    wget \
+    make
 
-# Fix locale issue
-RUN locale-gen en_US.UTF-8 && \
-    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+# ROS melodic support
+RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-melodic-rqt \
+    ros-melodic-rqt* \
+    ros-melodic-rviz \
+    ros-melodic-desktop-full
 
 # Python3 support
-RUN apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     python3-pip \
     python3-yaml
 
@@ -32,12 +38,10 @@ ENV TB3_MODEL=burger \
     NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws
 
 # Copy needed files
-ADD files/setup.sh .
+ADD files/.bashrc .
 ADD files/.jwmrc /entry/
 COPY files/sshd_config /etc/ssh/
 
-RUN echo 'echo "[running .bashrc]"' >> .bashrc
-RUN echo "source /my_ros_data/setup.sh" >> .bashrc
 RUN git clone https://github.com/campusrover/rosutils.git
 
 WORKDIR /my_ros_data/catkin_ws/src
@@ -59,10 +63,7 @@ RUN git clone https://github.com/PacktPublishing/Hands-On-ROS-for-Robotics-Progr
 
 WORKDIR /my_ros_data
 
-RUN apt -y update
-RUN apt -y upgrade
-
-RUN apt-get -y install \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ros-melodic-slam-gmapping \
     ros-melodic-map-server \
     ros-melodic-move-base \
