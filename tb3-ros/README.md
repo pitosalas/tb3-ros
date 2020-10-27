@@ -1,6 +1,18 @@
-# tb3-ros standalone
+# tb3-ros v2
 
 Standalone docker image for running `tb3-ros`.
+
+## Specifications
+
+* Ubuntu 18.04
+* ROS Melodic
+* lxde window manager
+
+Services:
+* `80` NoVNC
+* `5900` VNC
+* `8080` VSCode
+* `2222` SSH
 
 ## Instructions
 
@@ -49,14 +61,14 @@ Standalone docker image for running `tb3-ros`.
   ```
 
 ### Accessing the virtual desktop
-* Browser: http://0.0.0.0:6080/vnc.html
+* Browser: http://0.0.0.0:80
 * Click on desktop and get a tiny menu. Click "terminal"
 * In that terminal do `source setup.bash`
 
 ### Accessing a virtual instance of VSCode for coding
 
 * VSCode is a very popular text editor
-* You can get to it with http://0.0.0.0:80
+* You can get to it with http://0.0.0.0:8080
 * If it asks for a password, use `dev@ros`
 
 ### Setup SSH for remote access
@@ -73,11 +85,11 @@ Standalone docker image for running `tb3-ros`.
 * Open a different terminal window and do: `roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch`
 
 ## Access IDE
-http://0.0.0.0:80
+http://0.0.0.0:8080
 password is: `dev@ros`
 
 ## Access linux to run graphical programs
-http://0.0.0.0:6080/vnc.html
+http://0.0.0.0:80
 password is: `dev@ros`
 
 ## Fixing the REST error
@@ -90,7 +102,7 @@ sed -i -e 's/https:\/\/api.ignitionfuel.org/https:\/\/api.ignitionrobotics.org/g
 
 *Only used when developing this image.* 
 
-If you want want the latest version of `tb3-ros`, do a `docker pull cosi119/tb3-ros:latest` instead.
+If you want want the latest version of `tb3-ros`, do a `docker pull cosi119/tb3-ros:v2` instead.
 
 ```bash
 make build

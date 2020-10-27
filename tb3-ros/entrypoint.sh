@@ -11,10 +11,7 @@ fi
 echo "starting sshd"
 /etc/init.d/ssh restart
 
-/code-server/code-server --user-data-dir /workspace --allow-http --password $PASSWORD --auth password &
-
 # Startup.sh (copied from fcwu/docker-ubuntu-vnc-desktop)
-
 if [ -n "$VNC_PASSWORD" ]; then
     echo -n "$VNC_PASSWORD" > /.password1
     x11vnc -storepasswd $(cat /.password1) /.password2

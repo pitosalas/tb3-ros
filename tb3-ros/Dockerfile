@@ -2,6 +2,11 @@ FROM dorowu/ubuntu-desktop-lxde-vnc:bionic
 
 # BASE IMAGE CUSTOMIZATIONS -----------------------------------------------------------------------
 
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+ENV ROS_DISTRO melodic
+
 # Install system dependencies
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     iproute2 \
@@ -13,7 +18,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     nano \
     wget \
     make \
-    git
+    git \
+    curl \
+    openssh-server
 
 # ROS melodic support
 RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
@@ -34,6 +41,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     python3-pip \
     python3-yaml
 
+# Code-server
+RUN mkdir /code-server && \
+    curl -fL https://github.com/cdr/code-server/releases/download/v3.6.1/code-server-3.6.1-linux-amd64.tar.gz \
+    | tar xvz --strip-components=1 -C /code-server
+
 # COURSE SPECIFIC CONFIGURATIONS ------------------------------------------------------------------
 WORKDIR /my_ros_data
 
@@ -43,28 +55,33 @@ ENV TB3_MODEL=burger \
     NAME_CATKIN_WORKSPACE=/my_ros_data/catkin_ws
 
 # Copy needed files
-ADD files/.bashrc .
-ADD files/.jwmrc /entry/
-COPY files/sshd_config /etc/ssh/
+ADD files/rootfs/.bashrc .
+ADD files/rootfs/.jwmrc /entry/
+COPY files/sshd/sshd_config /etc/ssh/
+COPY files/nginx/default /etc/nginx/sites-enabled/
+COPY files/supervisor/supervisord.conf /etc/supervisor/conf.d/
+
+RUN mkdir -p /my_ros_data/.config/code-server
+COPY files/code-server/config.yaml /my_ros_data/.config/code-server/config.yaml
 
 RUN git clone https://github.com/campusrover/rosutils.git
 
 WORKDIR /my_ros_data/catkin_ws/src
-RUN source /opt/ros/melodic/setup.bash && catkin_init_workspace
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_init_workspace"
 
 WORKDIR /my_ros_data/catkin_ws
-RUN source /opt/ros/melodic/setup.bash && catkin_make
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_make"
 
 WORKDIR /my_ros_data/catkin_ws/src
-RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
-RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
-RUN git clone https://github.com/campusrover/prrexamples.git
-RUN git clone https://github.com/campusrover/gen5.git
-RUN git clone https://github.com/MoffKalast/rbx1.git
-RUN git clone https://github.com/campusrover/robot_services.git
-RUN git clone https://github.com/campusrover/gpg_bran4.git
-RUN git clone https://github.com/PacktPublishing/Hands-On-ROS-for-Robotics-Programming.git
+RUN git clone --recursive --depth=1 https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+RUN git clone --recursive --depth=1 https://github.com/ROBOTIS-GIT/turtlebot3.git
+RUN git clone --recursive --depth=1 https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+RUN git clone --recursive --depth=1 https://github.com/campusrover/prrexamples.git
+RUN git clone --recursive --depth=1 https://github.com/campusrover/gen5.git
+RUN git clone --recursive --depth=1 https://github.com/MoffKalast/rbx1.git
+RUN git clone --recursive --depth=1 https://github.com/campusrover/robot_services.git
+RUN git clone --recursive --depth=1 https://github.com/campusrover/gpg_bran4.git
+RUN git clone --recursive --depth=1 https://github.com/PacktPublishing/Hands-On-ROS-for-Robotics-Programming.git
 
 WORKDIR /my_ros_data
 
@@ -77,7 +94,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ros-melodic-arbotix-* \
     ros-melodic-turtlebot*
 
-RUN rosdep update
+RUN rosdep init && \
+    rosdep update --rosdistro $ROS_DISTRO
 
 RUN pip install redis
 RUN pip3 install \
@@ -85,7 +103,7 @@ RUN pip3 install \
     catkin_pkg
 
 WORKDIR /my_ros_data/catkin_ws
-RUN source /opt/ros/melodic/setup.bash && catkin_make
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_make"
 
 COPY ./entrypoint.sh /entry/
 RUN chmod +x /entry/entrypoint.sh
