@@ -17,10 +17,22 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     python-mako \
     nano \
     wget \
+    curl \
+    tar \
     make \
     git \
     curl \
-    openssh-server
+    openssh-server \
+    iptables
+
+RUN mkdir -p /my_ros_data/tailscale
+RUN curl -vsLo tailscale.tar.gz "https://pkgs.tailscale.com/stable/tailscale_1.2.10_amd64.tgz" && \
+    tar xvf tailscale.tar.gz && \
+    mv "tailscale_1.2.10_amd64/tailscaled" /usr/bin && \
+    mv "tailscale_1.2.10_amd64/tailscale" /usr/bin
+
+RUN chmod +x /usr/bin/tailscale
+RUN chmod +x /usr/bin/tailscaled
 
 # ROS melodic support
 RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list

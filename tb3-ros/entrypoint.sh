@@ -2,10 +2,15 @@
 #!/bin/bash
 
 if [[ ! -z "${GW_IP}" ]]; then
-  echo "setting up routes for tailscale-relay"
-  ip route del default
-  ip route add 100.64.0.0/10 via $RELAY_IP
-  ip route add default via $GW_IP
+    echo "setting up routes for tailscale-relay"
+    ip route del default
+    ip route add 100.64.0.0/10 via $RELAY_IP
+    ip route add default via $GW_IP
+else
+    # Setup tun interface for tailscale
+    echo "setting up for running tailscale locally"
+    if [ ! -d /dev/net ]; then mkdir /dev/net; fi
+    if [ ! -e /dev/net/tun ]; then  mknod /dev/net/tun c 10 200; fi
 fi
 
 echo "starting sshd"
