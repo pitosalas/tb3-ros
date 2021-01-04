@@ -9,8 +9,6 @@ ENV ROS_DISTRO melodic
 
 # Install system dependencies
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    iproute2 \
-    iputils-ping \
     python \
     python-pip \
     python-dev \
@@ -23,7 +21,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git \
     curl \
     openssh-server \
-    iptables
+    iptables \
+    iproute2 \
+    iputils-ping \
+    netcat
 
 RUN mkdir -p /my_ros_data/tailscale
 RUN curl -vsLo tailscale.tar.gz "https://pkgs.tailscale.com/stable/tailscale_1.2.10_amd64.tgz" && \
