@@ -2,7 +2,7 @@ version: '3.7'
 services:
   tb3-ros:
     container_name: tb3-ros
-    image: cosi119/tb3-ros:v2
+    image: cosi119/tb3-ros:v2.0.0
     ports:
       - '80:80'
       - '2222:2222'
