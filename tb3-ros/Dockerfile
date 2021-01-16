@@ -81,7 +81,6 @@ RUN git clone --recursive --depth=1 https://github.com/campusrover/gen5.git
 RUN git clone --recursive --depth=1 https://github.com/MoffKalast/rbx1.git
 RUN git clone --recursive --depth=1 https://github.com/campusrover/robot_services.git
 RUN git clone --recursive --depth=1 https://github.com/campusrover/gpg_bran4.git
-RUN git clone --recursive --depth=1 https://github.com/PacktPublishing/Hands-On-ROS-for-Robotics-Programming.git
 
 WORKDIR /my_ros_data
 
