@@ -4,10 +4,12 @@
 
 ## Intro
 
-This is a docker package to allow you to run ROS and related applications through your browser. The following is installed:
+This is a docker image to allow you to run ROS and related applications through your browser. The following is installed:
 
 * ROS Melodic
-* Turtlbot3 packages
+* VSCode
+* NoVNC desktop
+* Turtlebot3 packages
 * prrexamples: examples from the book Programming Robotis with Ros
 * Gen5: Assignments for this generation of Cosi119a
 * Here are some handy commands for later: https://campus-rover.gitbook.io/lab-notebook/ros-tips/handy-commands
@@ -16,14 +18,6 @@ This is a docker package to allow you to run ROS and related applications throug
 
 **Tested on Windows, Mac, Ubuntu**
 
-`tb3-ros` can be started as a standalone container.
+`tb3-ros` can be started as on a local docker installation.
 
-See [tb3-ros](tb3-ros/README.md).
-
-## Server mode
-
-**Only tested on Ubuntu 18.04**
-
-`tb3-ros` can be started as a server with multiple containers running this image.
-
-See [serverctl](server/README.md).
+See [campusrover/clouddesktop-docker](https://github.com/campusrover/clouddesktop-docker).
