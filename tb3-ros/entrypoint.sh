@@ -16,6 +16,9 @@ fi
 echo "starting sshd"
 /etc/init.d/ssh restart
 
+# Create log directory for supervisor
+mkdir -p /var/log/supervisor
+
 # Startup.sh (copied from fcwu/docker-ubuntu-vnc-desktop)
 if [ -n "$VNC_PASSWORD" ]; then
     echo -n "$VNC_PASSWORD" > /.password1

@@ -6,7 +6,7 @@
 
 This is a docker image to allow you to run ROS and related applications through your browser. The following is installed:
 
-* ROS Melodic
+* ROS2 Noetic
 * VSCode
 * NoVNC desktop
 * Turtlebot3 packages
@@ -16,7 +16,7 @@ This is a docker image to allow you to run ROS and related applications through 
 
 ## Standalone image
 
-**Tested on Windows, Mac, Ubuntu**
+**Tested on Mac, Ubuntu**
 
 `tb3-ros` can be started as on a local docker installation.
 
