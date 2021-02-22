@@ -61,7 +61,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 # Code-server
 RUN mkdir /code-server && \
-    curl -fL https://github.com/cdr/code-server/releases/download/v3.6.1/code-server-3.6.1-linux-amd64.tar.gz \
+    curl -fL https://github.com/cdr/code-server/releases/download/v3.7.2/code-server-3.7.2-linux-amd64.tar.gz \
     | tar xvz --strip-components=1 -C /code-server
 
 # COURSE SPECIFIC CONFIGURATIONS ------------------------------------------------------------------
